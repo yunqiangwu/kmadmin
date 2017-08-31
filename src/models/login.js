@@ -6,6 +6,7 @@ export default {
   namespace: 'login',
   state: {
     loginLoading: false,
+    tokenData: {},
   },
 
   effects: {
@@ -16,12 +17,13 @@ export default {
       const data = yield call(login, payload)
       yield put({ type: 'hideLoginLoading' })
       if (data.success) {
+        yield put({ type: 'app/putTokenData', payload: data })
         const from = queryURL('from')
         yield put({ type: 'app/query' })
         if (from) {
           yield put(routerRedux.push(from))
         } else {
-          yield put(routerRedux.push('/dashboard'))
+          yield put(routerRedux.push('/homepage'))
         }
       } else {
         throw data

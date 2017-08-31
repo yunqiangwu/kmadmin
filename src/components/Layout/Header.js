@@ -4,6 +4,8 @@ import { Menu, Icon, Popover } from 'antd'
 import classnames from 'classnames'
 import styles from './Header.less'
 import Menus from './Menu'
+import { config } from 'utils'
+import md5 from 'utils/md5'
 
 const SubMenu = Menu.SubMenu
 
@@ -19,36 +21,52 @@ const Header = ({ user, logout, switchSider, siderFold, isNavbar, menuPopoverVis
     navOpenKeys,
     changeOpenKeys,
   }
+
+  let avatarSrc = `http://www.gravatar.com/avatar/${md5(user.email)}?s=128`
   return (
     <div className={styles.header}>
-      {isNavbar
-        ? <Popover placement="bottomLeft" onVisibleChange={switchMenuPopover} visible={menuPopoverVisible} overlayClassName={styles.popovermenu} trigger="click" content={<Menus {...menusProps} />}>
-          <div className={styles.button}>
-            <Icon type="bars" />
-          </div>
-        </Popover>
-        : <div
-          className={styles.button}
-          onClick={switchSider}
-        >
-          <Icon type={classnames({ 'menu-unfold': siderFold, 'menu-fold': !siderFold })} />
-        </div>}
+      <div className={styles.leftWarpper}>
+        <div className={styles.logo} style={{ transform: siderFold ? 'scale(0)' : 'scale(1)', marginLeft: siderFold ? '-88%' : 0 }}>
+          <img alt={'logo'} src={config.logo} />
+          <span>{config.name}</span>
+        </div>
+        {isNavbar
+          ? <Popover placement="bottomLeft"
+            onVisibleChange={switchMenuPopover}
+            visible={menuPopoverVisible}
+            overlayClassName={styles.popovermenu}
+            trigger="click"
+            content={<Menus {...menusProps} />}
+          >
+            <div className={styles.button}>
+              <Icon type="bars" />
+            </div>
+          </Popover>
+          : <div
+            className={styles.button}
+            onClick={switchSider}
+          >
+            <Icon type={classnames({ 'menu-unfold': siderFold, 'menu-fold': !siderFold })} />
+          </div>}
+      </div>
+
       <div className={styles.rightWarpper}>
         <div className={styles.button}>
           <Icon type="mail" />
         </div>
-        <Menu mode="horizontal" onClick={handleClickMenu}>
+        <Menu style={{ backgroundColor: 'transparent' }} mode="horizontal" onClick={handleClickMenu}>
           <SubMenu
             style={{
               float: 'right',
             }}
-            title={<span>
-              <Icon type="user" />
-              {user.username}
+            title={<span style={{ height: '100%', display: 'flex' }}>
+              <span className={styles.username}>{user.username}</span>
+              <img src={avatarSrc} className={styles.usericon} alt="avatar" />
+              {/*<Icon className={styles.usericon} type="user" />*/}
             </span>}
           >
             <Menu.Item key="logout">
-              Sign out
+              退出登录
             </Menu.Item>
           </SubMenu>
         </Menu>

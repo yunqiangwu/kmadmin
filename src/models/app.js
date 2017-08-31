@@ -21,13 +21,14 @@ export default {
       {
         id: 1,
         icon: 'laptop',
-        name: 'Dashboard',
-        router: '/dashboard',
+        name: '首页',
+        route: '/',
       },
     ],
     menuPopoverVisible: false,
+    tokenData: JSON.parse(window.localStorage.getItem(`${prefix}tokenData`)) || {},
     siderFold: window.localStorage.getItem(`${prefix}siderFold`) === 'true',
-    darkTheme: window.localStorage.getItem(`${prefix}darkTheme`) === 'true',
+    darkTheme: false,
     isNavbar: document.body.clientWidth < 769,
     navOpenKeys: JSON.parse(window.localStorage.getItem(`${prefix}navOpenKeys`)) || [],
   },
@@ -49,12 +50,24 @@ export default {
 
     * query ({
       payload,
-    }, { call, put }) {
-      const { success, user } = yield call(query, payload)
+    }, { call, put, select }) {
+      let tokenData = yield select(s => s.app.tokenData)
+      tokenData && (window.tokenData = tokenData)
+      const userInfo = yield call(query, payload)
+      const { success } = userInfo
+      let user = {
+        ...userInfo,
+        permissions: {
+          role: EnumRoleType.DEVELOPER,
+        },
+        id: +userInfo.userId,
+      }
       if (success && user) {
         const { list } = yield call(menusService.query)
         const { permissions } = user
         let menu = list
+        permissions.visit = list.map(item => item.id)
+
         if (permissions.role === EnumRoleType.ADMIN || permissions.role === EnumRoleType.DEVELOPER) {
           permissions.visit = list.map(item => item.id)
         } else {
@@ -76,11 +89,12 @@ export default {
           },
         })
         if (location.pathname === '/login') {
-          yield put(routerRedux.push('/dashboard'))
+          yield put(routerRedux.push('/homepage'))
         }
       } else if (config.openPages && config.openPages.indexOf(location.pathname) < 0) {
         let from = location.pathname
         window.location = `${location.origin}/login?from=${from}`
+        // yield put(routerRedux.replace( '/login' + (/\s*\/\s*/.test(from) ? '?from=/' : `?from=${from}`)))
       }
     },
 
@@ -89,6 +103,7 @@ export default {
     }, { call, put }) {
       const data = yield call(logout, parse(payload))
       if (data.success) {
+        yield put({ type: 'app/clearTokenData' })
         yield put({ type: 'query' })
       } else {
         throw (data)
@@ -111,7 +126,20 @@ export default {
         ...payload,
       }
     },
-
+    putTokenData (state, { payload }) {
+      window.localStorage.setItem(`${prefix}tokenData`, JSON.stringify(payload))
+      return {
+        ...state,
+        tokenData: payload,
+      }
+    },
+    clearTokenData (state) {
+      window.localStorage.removeItem(`${prefix}tokenData`)
+      return {
+        ...state,
+        tokenData: {},
+      }
+    },
     switchSider (state) {
       window.localStorage.setItem(`${prefix}siderFold`, !state.siderFold)
       return {
@@ -121,11 +149,12 @@ export default {
     },
 
     switchTheme (state) {
-      window.localStorage.setItem(`${prefix}darkTheme`, !state.darkTheme)
-      return {
-        ...state,
-        darkTheme: !state.darkTheme,
-      }
+      return state
+      // window.localStorage.setItem(`${prefix}darkTheme`, !state.darkTheme)
+      // return {
+      //   ...state,
+      //   darkTheme: !state.darkTheme,
+      // }
     },
 
     switchMenuPopver (state) {

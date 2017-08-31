@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "icon": "laptop",
+    "name": "首页",
+    "route": "/homepage"
+  },
+  {
+    "id": "2",
+    "bpid": "1",
+    "name": "系统管理",
+    "icon": "setting"
+  },
+  {
+    "id": "21",
+    "bpid": "2",
+    "mpid": "2",
+    "name": "消息维护",
+    "icon": "shopping-cart",
+    "route": "/prompts"
+  },
+  {
+    "id": "22",
+    "bpid": "2",
+    "mpid": "2",
+    "name": "快码维护",
+    "icon": "shopping-cart",
+    "route": "/codes"
+  },
+  {
+    "id": "221",
+    "bpid": "2",
+    "mpid": "-1",
+    "name": "编辑快码详情",
+    "icon": "shopping-cart",
+    "route": "/codes/values/:lookUpType"
+  }
+]

@@ -15,6 +15,12 @@ const fetch = (options) => {
     url,
   } = options
 
+  if (window.tokenData && window.tokenData.access_token) {
+    axios.defaults.headers['Authorization'] = window.tokenData.token_type + ' ' + window.tokenData.access_token
+  } else {
+    axios.defaults.headers['Authorization'] = ''
+  }
+
   const cloneData = lodash.cloneDeep(data)
 
   try {
@@ -74,6 +80,7 @@ const fetch = (options) => {
 }
 
 export default function request (options) {
+
   if (options.url && options.url.indexOf('//') > -1) {
     const origin = `${options.url.split('//')[0]}//${options.url.split('//')[1].split('/')[0]}`
     if (window.location.origin !== origin) {

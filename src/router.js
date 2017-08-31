@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Router } from 'dva/router'
 import App from 'routes/app'
 
+
 const registerModel = (app, model) => {
   if (!(app._models.filter(m => m.namespace === model.namespace).length === 1)) {
     app.model(model)
@@ -16,12 +17,48 @@ const Routers = function ({ history, app }) {
       component: App,
       getIndexRoute (nextState, cb) {
         require.ensure([], (require) => {
-          registerModel(app, require('models/dashboard'))
-          cb(null, { component: require('routes/dashboard/') })
-        }, 'dashboard')
+          registerModel(app, require('models/homepage'))
+          cb(null, { component: require('routes/homepage/') })
+        }, 'homepage')
       },
       childRoutes: [
         {
+          path: 'prompts',
+          getComponent (nextState, cb) {
+            require.ensure([], (require) => {
+              registerModel(app, require('models/prompts'))
+              cb(null, require('routes/prompts/'))
+            }, 'prompts')
+          },
+        },
+        {
+          path: 'codes',
+          getComponent (nextState, cb) {
+            require.ensure([], (require) => {
+              registerModel(app, require('models/codes'))
+              cb(null, require('routes/codes/'))
+            }, 'codes')
+          },
+          childRoutes: [
+            {
+              path: '/values/:lookUpType',
+              getComponent (nextState, cb) {
+                require.ensure([], (require) => {
+                  registerModel(app, require('models/codes/values'))
+                  cb(null, require('routes/codes/values/'))
+                }, 'codes-values')
+              },
+            },
+          ],
+        }, {
+          path: 'homepage',
+          getComponent (nextState, cb) {
+            require.ensure([], (require) => {
+              registerModel(app, require('models/homepage'))
+              cb(null, require('routes/homepage/'))
+            }, 'homepage')
+          },
+        }, {
           path: 'dashboard',
           getComponent (nextState, cb) {
             require.ensure([], (require) => {
@@ -46,7 +83,7 @@ const Routers = function ({ history, app }) {
             }, 'user-detail')
           },
         }, {
-          path: 'login',
+          path: 'login*',
           getComponent (nextState, cb) {
             require.ensure([], (require) => {
               registerModel(app, require('models/login'))

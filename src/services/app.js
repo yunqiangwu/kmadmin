@@ -1,3 +1,4 @@
+/* global window */
 import { request, config } from 'utils'
 
 const { api } = config
@@ -12,10 +13,14 @@ export async function login (params) {
 }
 
 export async function logout (params) {
-  return request({
-    url: userLogout,
-    method: 'get',
-    data: params,
+  // return request({
+  //   url: userLogout,
+  //   method: 'get',
+  //   data: params,
+  // })
+  window.tokenData = undefined
+  return Promise.resolve({
+    success: true,
   })
 }
 

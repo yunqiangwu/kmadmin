@@ -1,6 +1,44 @@
 @import "~themes/vars";
 
 .header {
+
+  .logo {
+    text-align: center;
+    //height: 40px;
+    //line-height: 40px;
+    cursor: pointer;
+    //margin: 28px 0;
+    transition: @transition-ease-out;
+    overflow: hidden;
+
+    img {
+      width: 80px;
+      //margin-right: 8px;
+      vertical-align: middle;
+      transition: @transition-ease-out;
+    }
+
+    span {
+      vertical-align: middle;
+      font-size: 16px;
+      color: #fff;
+      display: inline-block;
+    }
+
+    .anticon {
+      transition: @transition-ease-out;
+    }
+  }
+
+  &.fold {
+    .logo {
+      img {
+        width: 28px;
+        margin: 6px 7px;
+      }
+    }
+  }
+
   :global .ant-menu-horizontal {
     & > .ant-menu-submenu {
       float: right;
@@ -12,13 +50,41 @@
   position: relative;
   display: flex;
   justify-content: space-between;
-  height: 47px;
-  background-color: #fff;
-  z-index: 999;
+  //height: 47px;
+  background-color: #3B3F51;
+  color: #aeb2c4;
+  :global{
+    .ant-menu{
+      color: #aeb2c4;
+    }
+  }
 
+
+  height: 75px;
+  min-height: 75px;
+  align-items: center;
+
+  z-index: 999;
+  .leftWarpper{
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+  }
   .rightWarpper {
     display: flex;
     padding-right: 16px;
+
+    .username{
+      font-size: 16px;
+    }
+    .usericon{
+      margin-left: 10px;
+      //background: red;
+      height: 39px;
+      width: 39px;
+      line-height: 39px;
+      border-radius: 50%;
+    }
   }
 
   .button {

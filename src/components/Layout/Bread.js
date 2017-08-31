@@ -7,12 +7,18 @@ import pathToRegexp from 'path-to-regexp'
 import { queryArray } from 'utils'
 import styles from './Bread.less'
 
+const currentIsHomePage = (pathname) => {
+  return pathname === '/' || pathname === '/homepage'
+}
+
 const Bread = ({ menu }) => {
   // 匹配当前路由
   let pathArray = []
   let current
-  for (let index in menu) {
-    if (menu[index].route && pathToRegexp(menu[index].route).exec(location.pathname)) {
+  for (let index = 0; index < menu.length; index += 1) {
+    let url1 = menu[index].route
+    let url2 = location.pathname
+    if ((url1 && pathToRegexp(url1).exec(url2)) || (currentIsHomePage(url1) && currentIsHomePage(url2))) {
       current = menu[index]
       break
     }

@@ -13,7 +13,7 @@ import Error from './error'
 
 const { prefix, openPages } = config
 
-const { Header, Bread, Footer, Sider, styles } = Layout
+const { Header, Bread, Sider, styles } = Layout
 let lastHref
 
 const App = ({ children, dispatch, app, loading, location }) => {
@@ -87,18 +87,18 @@ const App = ({ children, dispatch, app, loading, location }) => {
         {iconFontCSS && <link rel="stylesheet" href={iconFontCSS} />}
       </Helmet>
       <div className={classnames(styles.layout, { [styles.fold]: isNavbar ? false : siderFold }, { [styles.withnavbar]: isNavbar })}>
+        <Header {...headerProps} />
         {!isNavbar ? <aside className={classnames(styles.sider, { [styles.light]: !darkTheme })}>
           <Sider {...siderProps} />
         </aside> : ''}
         <div className={styles.main}>
-          <Header {...headerProps} />
           <Bread {...breadProps} />
           <div className={styles.container}>
             <div className={styles.content}>
               {hasPermission ? children : <Error />}
             </div>
           </div>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </div>
     </div>
