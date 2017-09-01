@@ -21,9 +21,9 @@ const TwoColProps = {
 
 const Filter = ({
   onAdd,
-  children,
   onFilterChange,
   filter,
+  children,
   form: {
     getFieldDecorator,
     getFieldsValue,
@@ -97,7 +97,6 @@ Filter.propTypes = {
   filter: PropTypes.object,
   onFilterChange: PropTypes.func,
   children: PropTypes.any,
-
 }
 
 export default Form.create()(Filter)

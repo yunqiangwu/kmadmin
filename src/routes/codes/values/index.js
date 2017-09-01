@@ -3,26 +3,20 @@ import PropTypes from 'prop-types'
 import { connect } from 'dva'
 import styles from './index.less'
 
-const Detail = ({ codeValues }) => {
-  const { data } = codeValues
-  const content = []
-  for (let key in data) {
-    if ({}.hasOwnProperty.call(data, key)) {
-      content.push(<div key={key} className={styles.item}>
-        <div>{key}</div>
-        <div>{String(data[key])}</div>
-      </div>)
-    }
-  }
-  return (<div className="content-inner">
-    <div className={styles.content}>
-      {content}
-    </div>
-  </div>)
+const Detail = ({ codeValues, dispatch, codes, loading }) => {
+  const { data: list, pagination, currentItem, modalVisible, modalType, selectedRowKeys } = codeValues
+  // const { pageSize } = pagination
+  // const isMotion = true
+
+
+  return <div>{JSON.stringify(list)}</div>
 }
 
 Detail.propTypes = {
   codeValues: PropTypes.object,
+  location: PropTypes.object,
+  dispatch: PropTypes.func,
+  loading: PropTypes.bool,
 }
 
 export default connect(({ codeValues, loading }) => ({ codeValues, loading: loading.models.codeValues }))(Detail)

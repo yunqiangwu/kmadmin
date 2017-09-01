@@ -1,8 +1,10 @@
 /* global location */
 import pathToRegexp from 'path-to-regexp'
 import { queryValues } from '../../services/codes'
+import modelExtend from 'dva-model-extend'
+import { pageModel } from 'models/common'
 
-export default {
+export default modelExtend(pageModel, {
 
   namespace: 'codeValues',
 
@@ -49,4 +51,4 @@ export default {
       }
     },
   },
-}
+})

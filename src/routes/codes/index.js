@@ -16,8 +16,8 @@ const User = ({ location, dispatch, codes, loading }) => {
     item: modalType === 'create' ? {} : currentItem,
     visible: modalVisible,
     maskClosable: false,
-    confirmLoading: loading.effects['codes/update'],
-    title: `${modalType === 'create' ? '创建快码' : '更新快码'}`,
+    confirmLoading: loading,
+    title: `${modalType === 'create' ? '新建快码' : '编辑快码'}`,
     wrapClassName: 'vertical-center-modal',
     onOk (data) {
       dispatch({
@@ -35,7 +35,7 @@ const User = ({ location, dispatch, codes, loading }) => {
   const listProps = {
     dataSource: list,
     isMotion,
-    loading: loading.effects['codes/query'],
+    loading,
     pagination,
     location,
     onChange (page) {
@@ -154,7 +154,7 @@ User.propTypes = {
   codes: PropTypes.object,
   location: PropTypes.object,
   dispatch: PropTypes.func,
-  loading: PropTypes.object,
+  loading: PropTypes.bool,
 }
 
-export default connect(({ codes, loading }) => ({ codes, loading }))(User)
+export default connect(({ codes, loading }) => ({ codes, loading: loading.effects['codes/query'] }))(User)

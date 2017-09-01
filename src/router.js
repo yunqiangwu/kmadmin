@@ -23,6 +23,15 @@ const Routers = function ({ history, app }) {
       },
       childRoutes: [
         {
+          path: 'codes/values/:lookUpType',
+          getComponent (nextState, cb) {
+            require.ensure([], (require) => {
+              registerModel(app, require('models/codes/values'))
+              cb(null, require('routes/codes/values/'))
+            }, 'codes-values')
+          },
+        },
+        {
           path: 'prompts',
           getComponent (nextState, cb) {
             require.ensure([], (require) => {
@@ -39,17 +48,6 @@ const Routers = function ({ history, app }) {
               cb(null, require('routes/codes/'))
             }, 'codes')
           },
-          childRoutes: [
-            {
-              path: '/values/:lookUpType',
-              getComponent (nextState, cb) {
-                require.ensure([], (require) => {
-                  registerModel(app, require('models/codes/values'))
-                  cb(null, require('routes/codes/values/'))
-                }, 'codes-values')
-              },
-            },
-          ],
         }, {
           path: 'homepage',
           getComponent (nextState, cb) {

@@ -133,19 +133,18 @@ const User = ({ location, dispatch, prompts, loading }) => {
 
   return (
     <div className="content-inner">
-      <Filter {...filterProps} />
-      <List {...listProps} />
-      {
-        selectedRowKeys.length > 0 &&
-        <Row style={{ marginBottom: 24, textAlign: 'left', fontSize: 13 }}>
-          <Col>
+      <Filter {...filterProps}>
+        {
+          selectedRowKeys.length > 0 &&
+          <span>
             {`Selected ${selectedRowKeys.length} items `}
             <Popconfirm title={'Are you sure delete these items?'} placement="left" onConfirm={handleDeleteItems}>
               <Button type="primary" size="large" style={{ marginLeft: 8 }}>Remove</Button>
             </Popconfirm>
-          </Col>
-        </Row>
-      }
+          </span>
+        }
+      </Filter>
+      <List {...listProps} />
       {modalVisible && <Modal {...modalProps} />}
     </div>
   )
