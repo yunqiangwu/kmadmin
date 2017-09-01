@@ -4,7 +4,7 @@ import { Table, Modal } from 'antd'
 import classnames from 'classnames'
 import { DropOption } from 'components'
 import { Link } from 'dva/router'
-import AnimTableBody from '../../components/DataTable/AnimTableBody'
+import AnimTableBody from '../../../components/DataTable/AnimTableBody'
 import styles from './List.less'
 
 const confirm = Modal.confirm
@@ -17,7 +17,7 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
       confirm({
         title: 'Are you sure delete this record?',
         onOk () {
-          onDeleteItem(record.id)
+          onDeleteItem(record.lookUpId)
         },
       })
     }
@@ -25,15 +25,34 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
 
   const columns = [
     {
-      title: '快码编号',
-      dataIndex: 'lookUpType',
-      key: 'lookUpType',
-      render: (text, record) => <Link to={`codes/values/${record.lookUpType}`}>{text}</Link>,
-    }, {
-      title: '快码名称',
-      dataIndex: 'name',
-      key: 'name',
-    }, {
+      title: '值',
+      dataIndex: 'lookUpCode',
+      key: 'lookUpCode',
+    },
+    {
+      title: '含义',
+      dataIndex: 'lookUpValue',
+      key: 'lookUpValue',
+    },
+    {
+      title: '排序号',
+      dataIndex: 'displayOrder',
+      key: 'displayOrder',
+    },
+    {
+      title: '语言',
+      dataIndex: 'language',
+      key: 'language',
+    },
+    {
+      title: '是否启用',
+      dataIndex: 'enabled',
+      key: 'enabled',
+      render (text, record, index) {
+        return record.enabled ? '是' : '否'
+      },
+    },
+    {
       title: '描述',
       dataIndex: 'description',
       key: 'description',
@@ -62,8 +81,9 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
         bordered
         scroll={{ x: 1024 }}
         columns={columns}
+        pagination={false}
         simple
-        rowKey={record => record.lookUpType}
+        rowKey={record => record.lookUpId}
         getBodyWrapper={getBodyWrapper}
       />
     </div>

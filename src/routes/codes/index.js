@@ -137,9 +137,9 @@ const User = ({ location, dispatch, codes, loading }) => {
         {
           selectedRowKeys.length > 0 &&
             <span>
-              {`Selected ${selectedRowKeys.length} items `}
-              <Popconfirm title={'Are you sure delete these items?'} placement="left" onConfirm={handleDeleteItems}>
-                <Button type="primary" size="large" style={{ marginLeft: 8 }}>Remove</Button>
+              {`已选中 ${selectedRowKeys.length} 个数据 `}
+              <Popconfirm title={'确认要删除已选中的数据?'} placement="left" onConfirm={handleDeleteItems}>
+                <Button type="primary" size="large" style={{ marginLeft: 8 }}>删除</Button>
               </Popconfirm>
             </span>
         }

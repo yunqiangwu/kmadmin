@@ -2,6 +2,7 @@ const qs = require('qs')
 const Mock = require('mockjs')
 const config = require('../utils/config')
 
+
 const { api: { codesList, codesSave, codesValuesList, codesValuesSave } } = config
 
 
@@ -25,6 +26,8 @@ let codesListData = Mock.mock({
             lookUpValue: '@cword(3, 6)',
             description: '@cparagraph',
             displayOrder: generateOrder,
+            language: 'CN',
+            enabled: true,
           },
           ],
         }).data
@@ -86,15 +89,15 @@ module.exports = {
     }
     newData = newData.map((item) => { return { ...item, valuesListData: undefined } })
     res.status(200).json({
-      data: newData.slice((page - 1) * pageSize, page * pageSize),
+      rows: newData.slice((page - 1) * pageSize, page * pageSize),
       total: newData.length,
     })
   },
   [`GET ${codesValuesList}`] (req, res) {
     const { query } = req
     let { pageSize, page, ...other } = query
-    pageSize = pageSize || 10
-    page = page || 1
+    // pageSize = pageSize || 10
+    // page = page || 1
 
     let newData = valuesDatabase
     for (let key in other) {
@@ -108,36 +111,47 @@ module.exports = {
       }
     }
     res.status(200).json({
-      data: newData.slice((page - 1) * pageSize, page * pageSize),
+      rows: newData,
       total: newData.length,
     })
   },
 
   [`POST ${codesSave}`] (req, res) {
     const submitData = req.body
-    const defaultData = Mock.mock({
-      lookUpType: '@string("lower", 5)_@integer(100, 999)',
-      name: '@cword(3, 6)',
-      description: '@cparagraph',
+    submitData.forEach((item) => {
+      if (item.deleted && item.lookUpType) {
+        database = database.filter(_ => _.lookUpType !== item.lookUpType)
+        valuesDatabase = valuesDatabase.filter(_ => _.lookUpType !== item.lookUpType)
+      }
+      if (!item.deleted && item.lookUpType) {
+        let index = database.findIndex(_ => _.lookUpType === item.lookUpType)
+        if (index > -1) {
+          database[index] = { ...database[index], ...item }
+        } else {
+          database.unshift(item)
+        }
+      }
     })
-    const newData = { ...submitData, ...defaultData }
-
-    database.unshift(newData)
-
     res.status(200).end()
   },
 
   [`POST ${codesValuesSave}`] (req, res) {
     const submitData = req.body
-    const defaultData = Mock.mock({
-      lookUpId: '@id',
-      lookUpCode: '@string("lower", 5)_@integer(100, 999)',
-      lookUpValue: '@cword(3, 6)',
-      description: '@cparagraph',
+    submitData.forEach((item) => {
+      if (item.deleted && item.lookUpId) {
+        valuesDatabase = valuesDatabase.filter(_ => _.lookUpId !== item.lookUpId)
+      }
+      if (!item.deleted && item.lookUpId) {
+        let index = valuesDatabase.findIndex(_ => _.lookUpId === item.lookUpId)
+        if (index > -1) {
+          valuesDatabase[index] = { ...valuesDatabase[index], ...item }
+        }
+      }
+      if (!item.lookUpId && item.lookUpType) {
+        item = { ...item, lookUpId: Mock.mock('@id') }
+        valuesDatabase.unshift(item)
+      }
     })
-    const newData = { ...submitData, ...defaultData }
-    valuesDatabase.unshift(newData)
-
     res.status(200).end()
   },
 

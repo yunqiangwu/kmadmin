@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Form, Input, InputNumber, Radio, Modal, Cascader } from 'antd'
-import city from '../../utils/city'
+import { Form, Input, InputNumber, Checkbox, Modal, Cascader } from 'antd'
 
 const FormItem = Form.Item
 
@@ -30,8 +29,8 @@ const modal = ({
         return
       }
       const data = {
+        ...item,
         ...getFieldsValue(),
-        key: item.key,
       }
       onOk(data)
     })
@@ -45,9 +44,9 @@ const modal = ({
   return (
     <Modal {...modalOpts}>
       <Form layout="horizontal">
-        <FormItem label="编码" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('messageId', {
-            initialValue: item.messageId,
+        <FormItem label="值" hasFeedback {...formItemLayout}>
+          {getFieldDecorator('lookUpCode', {
+            initialValue: item.lookUpCode,
             rules: [
               {
                 required: true,
@@ -55,15 +54,46 @@ const modal = ({
             ],
           })(<Input />)}
         </FormItem>
-        <FormItem label="名称" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('messageName', {
-            initialValue: item.messageName,
+        <FormItem label="含义" hasFeedback {...formItemLayout}>
+          {getFieldDecorator('lookUpValue', {
+            initialValue: item.lookUpValue,
             rules: [
               {
                 required: true,
               },
             ],
           })(<Input />)}
+        </FormItem>
+        <FormItem label="排序号" hasFeedback {...formItemLayout}>
+          {getFieldDecorator('displayOrder', {
+            initialValue: item.displayOrder,
+            rules: [
+              {
+                required: true,
+              },
+            ],
+          })(<InputNumber />)}
+        </FormItem>
+        <FormItem label="语言" hasFeedback {...formItemLayout}>
+          {getFieldDecorator('language', {
+            initialValue: item.language,
+            rules: [
+              {
+                required: true,
+              },
+            ],
+          })(<Input />)}
+        </FormItem>
+        <FormItem label="是否启用" hasFeedback {...formItemLayout}>
+          {getFieldDecorator('enabled', {
+            initialValue: item.enabled,
+            valuePropName: 'checked',
+            rules: [
+              {
+                required: true,
+              },
+            ],
+          })(<Checkbox />)}
         </FormItem>
         <FormItem label="描述" hasFeedback {...formItemLayout}>
           {getFieldDecorator('description', {
@@ -73,7 +103,7 @@ const modal = ({
                 required: false,
               },
             ],
-          })(<Input.TextArea />)}
+          })(<Input />)}
         </FormItem>
       </Form>
     </Modal>

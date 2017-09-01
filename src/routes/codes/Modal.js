@@ -45,17 +45,7 @@ const modal = ({
   return (
     <Modal {...modalOpts}>
       <Form layout="horizontal">
-        <FormItem label="Name" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('name', {
-            initialValue: item.name,
-            rules: [
-              {
-                required: true,
-              },
-            ],
-          })(<Input />)}
-        </FormItem>
-        <FormItem label="LookUpType" hasFeedback {...formItemLayout}>
+        <FormItem label="代码" hasFeedback {...formItemLayout}>
           {getFieldDecorator('lookUpType', {
             initialValue: item.lookUpType,
             rules: [
@@ -65,7 +55,17 @@ const modal = ({
             ],
           })(<Input />)}
         </FormItem>
-        <FormItem label="Description" hasFeedback {...formItemLayout}>
+        <FormItem label="名称" hasFeedback {...formItemLayout}>
+          {getFieldDecorator('name', {
+            initialValue: item.name,
+            rules: [
+              {
+                required: true,
+              },
+            ],
+          })(<Input />)}
+        </FormItem>
+        <FormItem label="描述" hasFeedback {...formItemLayout}>
           {getFieldDecorator('description', {
             initialValue: item.description,
             rules: [
@@ -73,7 +73,7 @@ const modal = ({
                 required: false,
               },
             ],
-          })(<Input />)}
+          })(<Input.TextArea />)}
         </FormItem>
       </Form>
     </Modal>

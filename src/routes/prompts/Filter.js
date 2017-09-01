@@ -50,7 +50,7 @@ const Filter = ({
     handleSubmit()
   }
 
-  const { name, lookUpType, description } = filter
+  const { messageName, messageId, description } = filter
 
   let initialCreateTime = []
   if (filter.createTime && filter.createTime[0]) {
@@ -63,10 +63,10 @@ const Filter = ({
   return (
     <Row gutter={24}>
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
-        {getFieldDecorator('lookUpType', { initialValue: lookUpType })(<Search placeholder="编码查询" size="large" onSearch={handleSubmit} />)}
+        {getFieldDecorator('messageId', { initialValue: messageId })(<Search placeholder="编码查询" size="large" onSearch={handleSubmit} />)}
       </Col>
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
-        {getFieldDecorator('name', { initialValue: name })(<Search placeholder="名称查询" size="large" onSearch={handleSubmit} />)}
+        {getFieldDecorator('messageName', { initialValue: messageName })(<Search placeholder="名称查询" size="large" onSearch={handleSubmit} />)}
       </Col>
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
         {getFieldDecorator('description', { initialValue: description })(<Search placeholder="描述查询" size="large" onSearch={handleSubmit} />)}
@@ -74,14 +74,14 @@ const Filter = ({
       <Col {...TwoColProps} xl={{ span: 10 }} md={{ span: 24 }} sm={{ span: 24 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
           <div >
-            <Button type="primary" size="large" className="margin-right" onClick={handleSubmit}>Search</Button>
-            <Button size="large" onClick={handleReset}>Reset</Button>
+            <Button type="primary" size="large" className="margin-right" onClick={handleSubmit}>查询</Button>
+            <Button size="large" onClick={handleReset}>重置</Button>
           </div>
           <div>
             {children}
           </div>
           <div>
-            <Button size="large" type="ghost" onClick={onAdd}>Create</Button>
+            <Button size="large" type="ghost" onClick={onAdd}>新建</Button>
           </div>
         </div>
       </Col>

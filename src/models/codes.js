@@ -2,7 +2,8 @@ import * as codesService from 'services/codes'
 import modelExtend from 'dva-model-extend'
 import { pageModel } from './common'
 
-const { query } = codesService
+const PrimaryKeyFiled = 'lookUpType'
+const { query, save } = codesService
 export default modelExtend(pageModel, {
   namespace: 'codes',
   state: {
@@ -27,7 +28,7 @@ export default modelExtend(pageModel, {
         yield put({
           type: 'querySuccess',
           payload: {
-            list: data.data,
+            list: data.rows,
             pagination: {
               current: Number(payload.page) || 1,
               pageSize: Number(payload.pageSize) || 10,
@@ -35,6 +36,55 @@ export default modelExtend(pageModel, {
             },
           },
         })
+      }
+    },
+    * create ({ payload }, { call, put }) {
+      const data = yield call(save, [payload])
+      if (data.success) {
+        yield put({ type: 'hideModal' })
+        yield put({ type: 'query' })
+      } else {
+        throw data
+      }
+    },
+    * update ({ payload }, { call, put }) {
+      const data = yield call(save, [payload])
+      if (data.success) {
+        yield put({ type: 'hideModal' })
+        yield put({ type: 'query' })
+      } else {
+        throw data
+      }
+    },
+    * delete ({ payload }, { call, put, select }) {
+      const id = payload
+      let list = yield select(s => s.codes.list)
+      let deleteItem = list.find(item => item[PrimaryKeyFiled] === id)
+      deleteItem = { ...deleteItem, deleted: true }
+      const data = yield call(save, [deleteItem])
+      if (data.success) {
+        yield put({ type: 'updateState', payload: { selectedRowKeys: [] } })
+        yield put({ type: 'query' })
+      } else {
+        throw data
+      }
+    },
+    * multiDelete ({ payload }, { call, put, select }) {
+      const { ids } = payload
+      let list = yield select(s => s.codes.list)
+      let deleteDatas = list.filter((item) => {
+        console.log(ids, item[PrimaryKeyFiled])
+        if (ids && ids.indexOf(item[PrimaryKeyFiled]) >= 0) {
+          return true
+        }
+        return false
+      }).map(item => ({ ...item, deleted: true }))
+      const data = yield call(save, deleteDatas)
+      if (data.success) {
+        yield put({ type: 'updateState', payload: { selectedRowKeys: [] } })
+        yield put({ type: 'query' })
+      } else {
+        throw data
       }
     },
   },

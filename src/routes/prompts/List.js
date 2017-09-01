@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Table, Modal } from 'antd'
 import classnames from 'classnames'
 import { DropOption } from 'components'
+import { Button } from 'antd'
 import { Link } from 'dva/router'
 import AnimTableBody from '../../components/DataTable/AnimTableBody'
 import styles from './List.less'
@@ -17,7 +18,7 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
       confirm({
         title: 'Are you sure delete this record?',
         onOk () {
-          onDeleteItem(record.id)
+          onDeleteItem(record.messageId)
         },
       })
     }
@@ -25,14 +26,14 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
 
   const columns = [
     {
-      title: '快码编号',
-      dataIndex: 'lookUpType',
-      key: 'lookUpType',
+      title: '编码',
+      dataIndex: 'messageId',
+      key: 'messageId',
       // render: (text, record) => <Link to={`user/${record.id}`}>{text}</Link>,
     }, {
-      title: '快码名称',
-      dataIndex: 'name',
-      key: 'name',
+      title: '名称',
+      dataIndex: 'messageName',
+      key: 'messageName',
     }, {
       title: '描述',
       dataIndex: 'description',
@@ -42,7 +43,8 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
       title: '操作',
       key: 'operation',
       render: (text, record) => {
-        return <DropOption onMenuClick={e => handleMenuClick(record, e)} menuOptions={[{ key: '1', name: '编辑' }, { key: '2', name: '删除' }]} />
+        return <Button onClick={() => handleMenuClick(record, { key: '1', name: '编辑' })}>编辑</Button>
+        // return <DropOption onMenuClick={e => handleMenuClick(record, e)} menuOptions={[{ key: '1', name: '编辑' }, { key: '2', name: '删除' }]} />
       },
     },
   ]
@@ -63,7 +65,7 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
         scroll={{ x: 1024 }}
         columns={columns}
         simple
-        rowKey={record => record.lookUpType}
+        rowKey={record => record.messageId}
         getBodyWrapper={getBodyWrapper}
       />
     </div>

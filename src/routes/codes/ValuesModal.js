@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Form, Input, InputNumber, Radio, Modal, Cascader } from 'antd'
-import city from '../../utils/city'
 
 const FormItem = Form.Item
 
@@ -45,9 +44,9 @@ const modal = ({
   return (
     <Modal {...modalOpts}>
       <Form layout="horizontal">
-        <FormItem label="编码" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('messageId', {
-            initialValue: item.messageId,
+        <FormItem label="代码" hasFeedback {...formItemLayout}>
+          {getFieldDecorator('lookUpType', {
+            initialValue: item.lookUpType,
             rules: [
               {
                 required: true,
@@ -56,8 +55,8 @@ const modal = ({
           })(<Input />)}
         </FormItem>
         <FormItem label="名称" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('messageName', {
-            initialValue: item.messageName,
+          {getFieldDecorator('name', {
+            initialValue: item.name,
             rules: [
               {
                 required: true,

@@ -74,14 +74,14 @@ const Filter = ({
       <Col {...TwoColProps} xl={{ span: 10 }} md={{ span: 24 }} sm={{ span: 24 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
           <div >
-            <Button type="primary" size="large" className="margin-right" onClick={handleSubmit}>Search</Button>
-            <Button size="large" onClick={handleReset}>Reset</Button>
+            <Button type="primary" size="large" className="margin-right" onClick={handleSubmit}>查询</Button>
+            <Button size="large" onClick={handleReset}>重置</Button>
           </div>
           <div>
             {children}
           </div>
           <div>
-            <Button size="large" type="ghost" onClick={onAdd}>Create</Button>
+            <Button size="large" type="ghost" onClick={onAdd}>新建</Button>
           </div>
         </div>
       </Col>

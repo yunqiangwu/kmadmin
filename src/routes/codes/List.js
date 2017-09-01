@@ -17,7 +17,7 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
       confirm({
         title: 'Are you sure delete this record?',
         onOk () {
-          onDeleteItem(record.id)
+          onDeleteItem(record.lookUpType)
         },
       })
     }
@@ -25,12 +25,12 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
 
   const columns = [
     {
-      title: '快码编号',
+      title: '代码',
       dataIndex: 'lookUpType',
       key: 'lookUpType',
       render: (text, record) => <Link to={`codes/values/${record.lookUpType}`}>{text}</Link>,
     }, {
-      title: '快码名称',
+      title: '名称',
       dataIndex: 'name',
       key: 'name',
     }, {
