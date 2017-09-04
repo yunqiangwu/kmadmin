@@ -16,6 +16,7 @@ const formItemLayout = {
 const modal = ({
   item = {},
   onOk,
+  primaryKeyEditable,
   form: {
     getFieldDecorator,
     validateFields,
@@ -52,7 +53,7 @@ const modal = ({
                 required: true,
               },
             ],
-          })(<Input />)}
+          })(<Input readOnly={!primaryKeyEditable} />)}
         </FormItem>
         <FormItem label="含义" hasFeedback {...formItemLayout}>
           {getFieldDecorator('lookUpValue', {
@@ -114,6 +115,7 @@ modal.propTypes = {
   form: PropTypes.object.isRequired,
   type: PropTypes.string,
   item: PropTypes.object,
+  primaryKeyEditable: PropTypes.bool,
   onOk: PropTypes.func,
 }
 

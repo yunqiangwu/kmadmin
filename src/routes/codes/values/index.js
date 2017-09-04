@@ -30,6 +30,7 @@ const Detail = ({ codeValues, dispatch, location, loading }) => {
     item: modalType === 'create' ? {} : currentItem,
     visible: modalVisible,
     maskClosable: false,
+    primaryKeyEditable: modalType === 'create',
     confirmLoading: loading,
     title: `${modalType === 'create' ? '新建代码' : '编辑代码'}`,
     wrapClassName: 'vertical-center-modal',

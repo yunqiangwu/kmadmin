@@ -16,6 +16,7 @@ const User = ({ location, dispatch, codes, loading }) => {
     item: modalType === 'create' ? {} : currentItem,
     visible: modalVisible,
     maskClosable: false,
+    primaryKeyEditable: modalType === 'create',
     confirmLoading: loading,
     title: `${modalType === 'create' ? '新建快码' : '编辑快码'}`,
     wrapClassName: 'vertical-center-modal',
@@ -124,12 +125,6 @@ const User = ({ location, dispatch, codes, loading }) => {
       },
     })
   }
-
-  // return (
-  //   <div>
-  //     <pre>{JSON.stringify(list, null, 2)}</pre>
-  //   </div>
-  // )
 
   return (
     <div className="content-inner">
