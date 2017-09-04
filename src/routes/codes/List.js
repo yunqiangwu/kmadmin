@@ -28,7 +28,7 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
       title: '代码',
       dataIndex: 'lookUpType',
       key: 'lookUpType',
-      render: (text, record) => <Link to={`codes/values/${record.lookUpType}`}>{text}</Link>,
+      render: (text, record) => <Link to={`/codes/values/${record.lookUpType}`}>{text}</Link>,
     }, {
       title: '名称',
       dataIndex: 'name',

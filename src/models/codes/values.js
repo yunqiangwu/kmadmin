@@ -20,10 +20,11 @@ export default modelExtend(pageModel, {
 
   subscriptions: {
     setup ({ dispatch, history }) {
-      history.listen(() => {
-        const match = pathToRegexp('/codes/values/:lookUpType').exec(location.pathname)
+      history.listen((location) => {
+        let pathname = location.pathname
+        const match = pathToRegexp('/codes/values/:lookUpType').exec(pathname)
         if (match) {
-          dispatch({ type: 'query', payload: { lookUpType: match[1] } })
+          dispatch({ type: 'query' })
         }
       })
     },
@@ -39,13 +40,15 @@ export default modelExtend(pageModel, {
     },
     * query ({
       payload,
-    }, { call, put }) {
+    }, { call, put, select }) {
       yield put({ type: 'clearSelectRowKeys' })
-      const match = pathToRegexp('/codes/values/:lookUpType').exec(location.pathname)
+      let pathname = yield select(s => s.routing.locationBeforeTransitions.pathname)
+      const match = pathToRegexp('/codes/values/:lookUpType').exec(pathname)
       if (!match) {
-        throw new Error(`Error Url: ${location.pathname}`)
+        throw new Error(`Error Url: ${pathname}`)
       }
       payload = { ...payload, lookUpType: match[1] }
+      console.info(payload)
       const httpDataCodes = yield call(queryCodes, payload)
       if (!httpDataCodes || !httpDataCodes.rows) {
         throw httpDataCodes
@@ -70,10 +73,11 @@ export default modelExtend(pageModel, {
         },
       })
     },
-    * create ({ payload }, { call, put }) {
-      const match = pathToRegexp('/codes/values/:lookUpType').exec(location.pathname)
+    * create ({ payload }, { call, put, select }) {
+      let pathname = yield select(s => s.routing.locationBeforeTransitions.pathname)
+      const match = pathToRegexp('/codes/values/:lookUpType').exec(pathname)
       if (!match) {
-        throw new Error(`Error Url: ${location.pathname}`)
+        throw new Error(`Error Url: ${pathname}`)
       }
       payload.lookUpType = match[1]
       const data = yield call(saveValues, [payload])

@@ -22,8 +22,8 @@ const ColProps = {
 const Detail = ({ codeValues, dispatch, location, loading }) => {
   const { codesItem, list, pagination, currentItem, modalVisible, modalType, selectedRowKeys } = codeValues
   // const {  : { lookUpType } } = location;
-  const match = pathToRegexp('/codes/values/:lookUpType').exec(location.pathname)
-  const lookUpType = match && match[1]
+  // const match = pathToRegexp('/codes/values/:lookUpType').exec(location.pathname)
+  // const lookUpType = match && match[1]
   const isMotion = true
 
   const modalProps = {
@@ -91,52 +91,6 @@ const Detail = ({ codeValues, dispatch, location, loading }) => {
     },
   }
 
-  // const filterProps = {
-  //   isMotion,
-  //   filter: {
-  //     ...location.query,
-  //   },
-  //   onFilterChange (value) {
-  //     dispatch({ type: 'codeValues/query', payload: { ...value, lookUpType } })
-  //     // dispatch(routerRedux.push({
-  //     //   pathname: `/${location.pathname}`,
-  //     //   query: {
-  //     //     ...value,
-  //     //     // page: 1,
-  //     //     // pageSize,
-  //     //   },
-  //     // }))
-  //   },
-  //   onSearch (fieldsValue) {
-  //     if (fieldsValue.keyword.length) {
-  //       dispatch({ type: 'codeValues/query', payload: { ...fieldsValue, lookUpType } })
-  //     } else {
-  //       dispatch({ type: 'codeValues/query', payload: { lookUpType } })
-  //     }
-  //
-  //     // fieldsValue.keyword.length ? dispatch(routerRedux.push({
-  //     //   pathname: `/codes/values/${lookUpType}`,
-  //     //   query: {
-  //     //     field: fieldsValue.field,
-  //     //     keyword: fieldsValue.keyword,
-  //     //   },
-  //     // })) : dispatch(routerRedux.push({
-  //     //   pathname: `/codes/values/${lookUpType}`,
-  //     // }))
-  //   },
-  //   onAdd () {
-  //     dispatch({
-  //       type: 'codeValues/showModal',
-  //       payload: {
-  //         modalType: 'create',
-  //       },
-  //     })
-  //   },
-  //   switchIsMotion () {
-  //     dispatch({ type: 'codeValues/switchIsMotion' })
-  //   },
-  // }
-
   const onAdd = () => {
     dispatch({
       type: 'codeValues/showModal',
@@ -184,17 +138,6 @@ const Detail = ({ codeValues, dispatch, location, loading }) => {
           </Col>
         </CodesEditPannel>
       </div>
-      {/* <Filter {...filterProps}> */}
-      {/* { */}
-      {/* selectedRowKeys.length > 0 && */}
-      {/* <span> */}
-      {/* {`Selected ${selectedRowKeys.length} items `} */}
-      {/* <Popconfirm title={'Are you sure delete these items?'} placement="left" onConfirm={handleDeleteItems}> */}
-      {/* <Button type="primary" size="large" style={{ marginLeft: 8 }}>Remove</Button> */}
-      {/* </Popconfirm> */}
-      {/* </span> */}
-      {/* } */}
-      {/* </Filter> */}
       <List {...listProps} />
       {
         selectedRowKeys.length > 0 &&

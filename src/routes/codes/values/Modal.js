@@ -103,7 +103,7 @@ const modal = ({
                 required: false,
               },
             ],
-          })(<Input />)}
+          })(<Input.TextArea />)}
         </FormItem>
       </Form>
     </Modal>

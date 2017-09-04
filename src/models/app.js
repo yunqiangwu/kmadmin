@@ -1,6 +1,6 @@
 /* global window */
 /* global document */
-/* global location */
+// /* global location */
 import { routerRedux } from 'dva/router'
 import { parse } from 'qs'
 import config from 'config'
@@ -52,6 +52,7 @@ export default {
       payload,
     }, { call, put, select }) {
       let tokenData = yield select(s => s.app.tokenData)
+      let pathname = yield select(s => s.routing.locationBeforeTransitions.pathname)
       tokenData && (window.tokenData = tokenData)
       const userInfo = yield call(query, payload)
       const { success } = userInfo
@@ -88,13 +89,13 @@ export default {
             menu,
           },
         })
-        if (location.pathname === '/login') {
+        if (pathname === '/login') {
           yield put(routerRedux.push('/homepage'))
         }
-      } else if (config.openPages && config.openPages.indexOf(location.pathname) < 0) {
-        let from = location.pathname
-        window.location = `${location.origin}/login?from=${from}`
-        // yield put(routerRedux.replace( '/login' + (/\s*\/\s*/.test(from) ? '?from=/' : `?from=${from}`)))
+      } else if (config.openPages && config.openPages.indexOf(pathname) < 0) {
+        let from = pathname
+        // window.location = `${origin}/login?from=${from}`
+        yield put(routerRedux.replace(`/login${/\s*\/\s*/.test(from) ? '?from=/' : `?from=${from}`}`))
       }
     },
 
