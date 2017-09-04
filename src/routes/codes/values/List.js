@@ -80,6 +80,7 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
         className={classnames({ [styles.table]: true, [styles.motion]: isMotion })}
         bordered
         scroll={{ x: 1024 }}
+        onRowDoubleClick={(item) => { onEditItem(item) }}
         columns={columns}
         pagination={false}
         simple

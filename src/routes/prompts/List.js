@@ -62,6 +62,7 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
         {...tableProps}
         className={classnames({ [styles.table]: true, [styles.motion]: isMotion })}
         bordered
+        onRowDoubleClick={(item) => { onEditItem(item) }}
         scroll={{ x: 1024 }}
         columns={columns}
         simple
