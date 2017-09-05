@@ -2,7 +2,7 @@ import * as codesService from 'services/codes'
 import modelExtend from 'dva-model-extend'
 import { pageModel } from './common'
 
-const PrimaryKeyFiled = 'lookUpType'
+const PrimaryKeyFiled = 'lookupType'
 const { query, save } = codesService
 export default modelExtend(pageModel, {
   namespace: 'codes',

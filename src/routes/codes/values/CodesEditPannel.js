@@ -43,8 +43,8 @@ const modal = ({
       <Row gutter={24}>
         <Col span={12}>
           <FormItem label="代码" {...formItemLayout}>
-            {getFieldDecorator('lookUpType', {
-              initialValue: item.lookUpType,
+            {getFieldDecorator('lookupType', {
+              initialValue: item.lookupType,
               rules: [
                 {
                   required: true,

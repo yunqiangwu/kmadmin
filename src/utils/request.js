@@ -16,9 +16,9 @@ const fetch = (options) => {
   } = options
 
   if (window.tokenData && window.tokenData.access_token) {
-    axios.defaults.headers['Authorization'] = window.tokenData.token_type + ' ' + window.tokenData.access_token
+    axios.defaults.headers.Authorization = `${window.tokenData.token_type} ${window.tokenData.access_token}`
   } else {
-    axios.defaults.headers['Authorization'] = ''
+    axios.defaults.headers.Authorization = ''
   }
 
   const cloneData = lodash.cloneDeep(data)
@@ -80,19 +80,18 @@ const fetch = (options) => {
 }
 
 export default function request (options) {
-
-  if (options.url && options.url.indexOf('//') > -1) {
-    const origin = `${options.url.split('//')[0]}//${options.url.split('//')[1].split('/')[0]}`
-    if (window.location.origin !== origin) {
-      if (CORS && CORS.indexOf(origin) > -1) {
-        options.fetchType = 'CORS'
-      } else if (YQL && YQL.indexOf(origin) > -1) {
-        options.fetchType = 'YQL'
-      } else {
-        options.fetchType = 'JSONP'
-      }
-    }
-  }
+  // if (options.url && options.url.indexOf('//') > -1) {
+  //   const origin = `${options.url.split('//')[0]}//${options.url.split('//')[1].split('/')[0]}`
+  //   if (window.location.origin !== origin) {
+  //     if (CORS && CORS.indexOf(origin) > -1) {
+  //       options.fetchType = 'CORS'
+  //     } else if (YQL && YQL.indexOf(origin) > -1) {
+  //       options.fetchType = 'YQL'
+  //     } else {
+  //       options.fetchType = 'JSONP'
+  //     }
+  //   }
+  // }
 
   return fetch(options).then((response) => {
     const { statusText, status } = response

@@ -21,9 +21,9 @@ const ColProps = {
 
 const Detail = ({ codeValues, dispatch, location, loading }) => {
   const { codesItem, list, pagination, currentItem, modalVisible, modalType, selectedRowKeys } = codeValues
-  // const {  : { lookUpType } } = location;
-  // const match = pathToRegexp('/codes/values/:lookUpType').exec(location.pathname)
-  // const lookUpType = match && match[1]
+  // const {  : { lookupType } } = location;
+  // const match = pathToRegexp('/codes/values/:lookupType').exec(location.pathname)
+  // const lookupType = match && match[1]
   const isMotion = true
 
   const modalProps = {

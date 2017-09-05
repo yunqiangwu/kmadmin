@@ -22,7 +22,7 @@ export default modelExtend(pageModel, {
     setup ({ dispatch, history }) {
       history.listen((location) => {
         let pathname = location.pathname
-        const match = pathToRegexp('/codes/values/:lookUpType').exec(pathname)
+        const match = pathToRegexp('/codes/values/:lookupType').exec(pathname)
         if (match) {
           dispatch({ type: 'query' })
         }
@@ -43,11 +43,11 @@ export default modelExtend(pageModel, {
     }, { call, put, select }) {
       yield put({ type: 'clearSelectRowKeys' })
       let pathname = yield select(s => s.routing.locationBeforeTransitions.pathname)
-      const match = pathToRegexp('/codes/values/:lookUpType').exec(pathname)
+      const match = pathToRegexp('/codes/values/:lookupType').exec(pathname)
       if (!match) {
         throw new Error(`Error Url: ${pathname}`)
       }
-      payload = { ...payload, lookUpType: match[1] }
+      payload = { ...payload, lookupType: match[1] }
       console.info(payload)
       const httpDataCodes = yield call(queryCodes, payload)
       if (!httpDataCodes || !httpDataCodes.rows) {
@@ -75,11 +75,11 @@ export default modelExtend(pageModel, {
     },
     * create ({ payload }, { call, put, select }) {
       let pathname = yield select(s => s.routing.locationBeforeTransitions.pathname)
-      const match = pathToRegexp('/codes/values/:lookUpType').exec(pathname)
+      const match = pathToRegexp('/codes/values/:lookupType').exec(pathname)
       if (!match) {
         throw new Error(`Error Url: ${pathname}`)
       }
-      payload.lookUpType = match[1]
+      payload.lookupType = match[1]
       const data = yield call(saveValues, [payload])
       if (data.success) {
         yield put({ type: 'hideModal' })

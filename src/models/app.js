@@ -96,6 +96,8 @@ export default {
         let from = pathname
         // window.location = `${origin}/login?from=${from}`
         yield put(routerRedux.replace(`/login${/\s*\/\s*/.test(from) ? '?from=/' : `?from=${from}`}`))
+      } else {
+        throw userInfo
       }
     },
 

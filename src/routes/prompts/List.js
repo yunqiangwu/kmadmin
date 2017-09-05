@@ -35,16 +35,16 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
       dataIndex: 'messageName',
       key: 'messageName',
     }, {
-      title: '描述',
-      dataIndex: 'description',
-      key: 'description',
+      title: '内容',
+      dataIndex: 'message',
+      key: 'message',
     },
     {
       title: '操作',
       key: 'operation',
       render: (text, record) => {
-        return <Button onClick={() => handleMenuClick(record, { key: '1', name: '编辑' })}>编辑</Button>
-        // return <DropOption onMenuClick={e => handleMenuClick(record, e)} menuOptions={[{ key: '1', name: '编辑' }, { key: '2', name: '删除' }]} />
+        // return <Button onClick={() => handleMenuClick(record, { key: '1', name: '编辑' })}>编辑</Button>
+        return <DropOption onMenuClick={e => handleMenuClick(record, e)} menuOptions={[{ key: '1', name: '编辑' }, { key: '2', name: '删除' }]} />
       },
     },
   ]

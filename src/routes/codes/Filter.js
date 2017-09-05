@@ -50,7 +50,7 @@ const Filter = ({
     handleSubmit()
   }
 
-  const { name, lookUpType, description } = filter
+  const { name, lookupType, description } = filter
 
   let initialCreateTime = []
   if (filter.createTime && filter.createTime[0]) {
@@ -63,7 +63,7 @@ const Filter = ({
   return (
     <Row gutter={24}>
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
-        {getFieldDecorator('lookUpType', { initialValue: lookUpType })(<Search placeholder="编码查询" size="large" onSearch={handleSubmit} />)}
+        {getFieldDecorator('lookupType', { initialValue: lookupType })(<Search placeholder="编码查询" size="large" onSearch={handleSubmit} />)}
       </Col>
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
         {getFieldDecorator('name', { initialValue: name })(<Search placeholder="名称查询" size="large" onSearch={handleSubmit} />)}

@@ -9,7 +9,7 @@ const { api: { codesList, codesSave, codesValuesList, codesValuesSave } } = conf
 let codesListData = Mock.mock({
   'data|80-100': [
     {
-      lookUpType: '@string("lower", 5)_@integer(100, 999)',
+      lookupType: '@string("lower", 5)_@integer(100, 999)',
       name: '@cword(3, 6)',
       description: '@cparagraph',
       valuesListData: function avatar () {
@@ -21,7 +21,7 @@ let codesListData = Mock.mock({
         return Mock.mock({
           'data|0-6': [{
             lookUpId: '@id',
-            lookUpType: this.lookUpType,
+            lookupType: this.lookupType,
             lookUpCode: '@string("lower", 5)_@integer(100, 999)',
             lookUpValue: '@cword(3, 6)',
             description: '@cparagraph',
@@ -119,12 +119,12 @@ module.exports = {
   [`POST ${codesSave}`] (req, res) {
     const submitData = req.body
     submitData.forEach((item) => {
-      if (item.deleted && item.lookUpType) {
-        database = database.filter(_ => _.lookUpType !== item.lookUpType)
-        valuesDatabase = valuesDatabase.filter(_ => _.lookUpType !== item.lookUpType)
+      if (item.deleted && item.lookupType) {
+        database = database.filter(_ => _.lookupType !== item.lookupType)
+        valuesDatabase = valuesDatabase.filter(_ => _.lookupType !== item.lookupType)
       }
-      if (!item.deleted && item.lookUpType) {
-        let index = database.findIndex(_ => _.lookUpType === item.lookUpType)
+      if (!item.deleted && item.lookupType) {
+        let index = database.findIndex(_ => _.lookupType === item.lookupType)
         if (index > -1) {
           database[index] = { ...database[index], ...item }
         } else {
@@ -147,7 +147,7 @@ module.exports = {
           valuesDatabase[index] = { ...valuesDatabase[index], ...item }
         }
       }
-      if (!item.lookUpId && item.lookUpType) {
+      if (!item.lookUpId && item.lookupType) {
         item = { ...item, lookUpId: Mock.mock('@id') }
         valuesDatabase.unshift(item)
       }

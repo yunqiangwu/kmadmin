@@ -51,7 +51,7 @@ const modal = ({
             initialValue: item.messageId,
             rules: [
               {
-                required: true,
+                required: false,
               },
             ],
           })(<Input readOnly={!primaryKeyEditable} />)}
@@ -67,11 +67,11 @@ const modal = ({
           })(<Input />)}
         </FormItem>
         <FormItem label="描述" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('description', {
-            initialValue: item.description,
+          {getFieldDecorator('message', {
+            initialValue: item.message,
             rules: [
               {
-                required: false,
+                required: true,
               },
             ],
           })(<Input.TextArea />)}

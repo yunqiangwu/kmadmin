@@ -11,7 +11,7 @@ let promptsListData = Mock.mock({
     {
       messageId: '@id',
       messageName: '@cword(3, 6)',
-      description: '@cparagraph',
+      message: '@cparagraph',
     },
   ],
 })

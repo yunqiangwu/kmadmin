@@ -33,6 +33,6 @@
     "mpid": "-1",
     "name": "编辑快码详情",
     "icon": "shopping-cart",
-    "route": "/codes/values/:lookUpType"
+    "route": "/codes/values/:lookupType"
   }
 ]

@@ -17,7 +17,7 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
       confirm({
         title: 'Are you sure delete this record?',
         onOk () {
-          onDeleteItem(record.lookUpType)
+          onDeleteItem(record.lookupType)
         },
       })
     }
@@ -26,9 +26,9 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
   const columns = [
     {
       title: '代码',
-      dataIndex: 'lookUpType',
-      key: 'lookUpType',
-      render: (text, record) => <Link to={`/codes/values/${record.lookUpType}`}>{text}</Link>,
+      dataIndex: 'lookupType',
+      key: 'lookupType',
+      render: (text, record) => <Link to={`/codes/values/${record.lookupType}`}>{text}</Link>,
     }, {
       title: '名称',
       dataIndex: 'name',
@@ -64,7 +64,7 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
         scroll={{ x: 1024 }}
         columns={columns}
         simple
-        rowKey={record => record.lookUpType}
+        rowKey={record => record.lookupType}
         getBodyWrapper={getBodyWrapper}
       />
     </div>

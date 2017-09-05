@@ -2,8 +2,8 @@ let menusData = require('./menus2.json')
 
 const APIV1 = '/api/v1'
 const APIV2 = '/api/v2'
-let url = 'https://dev2.zhishinet.com'
-url = ''
+let url = 'https://test.zhishinet.com'
+// url = ''
 
 module.exports = {
   name: '芝士网后台管理',
@@ -18,7 +18,7 @@ module.exports = {
   APIV1,
   APIV2,
   api: {
-    userLogin: `${url}/app/HEMPlatform-service/rest/v6/accessToken`,
+    userLogin: `${url}/api/zauth/v1/token/access`,
     userLogout: `${APIV1}/user/logout`,
     userInfo: `${APIV1}/userInfo`,
     users: `${APIV1}/users`,

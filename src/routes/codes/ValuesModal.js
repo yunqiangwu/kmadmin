@@ -45,8 +45,8 @@ const modal = ({
     <Modal {...modalOpts}>
       <Form layout="horizontal">
         <FormItem label="代码" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('lookUpType', {
-            initialValue: item.lookUpType,
+          {getFieldDecorator('lookupType', {
+            initialValue: item.lookupType,
             rules: [
               {
                 required: true,
