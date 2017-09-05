@@ -221,12 +221,12 @@ node('mac_mini') {
                 sh "ssh -i ${sshKeyPath} -o StrictHostKeyChecking=no ${nginxServerUsername}@${nginxServerIP} uname -a"
                 sh "scp -i ${sshKeyPath} -o StrictHostKeyChecking=no ./ZSWKMAdmin.tar.gz ${nginxServerUsername}@${nginxServerIP}:~/"
                 sh 'ssh -i ' + sshKeyPath + ' -o StrictHostKeyChecking=no ' + nginxServerUsername + '@' + nginxServerIP + ' "cd ' +nginxProjectPath + ' && rm -rf ./ZSWKMAdmin/*"'
-                sh 'ssh -i ' + sshKeyPath + ' -o StrictHostKeyChecking=no ' + nginxServerUsername + '@' + nginxServerIP + ' "cd ' +nginxProjectPath + ' && tar -zxvf ~/ZSWKMAdmin.tar.gz -C ./ZSWKMAdmin && rm -rf ~/ZSWKMAdmin.tar.gz"'
+                sh 'ssh -i ' + sshKeyPath + ' -o StrictHostKeyChecking=no ' + nginxServerUsername + '@' + nginxServerIP + ' "cd ' +nginxProjectPath + ' && mkdir ZSWKMAdmin && tar -zxvf ~/ZSWKMAdmin.tar.gz -C ./ZSWKMAdmin && rm -rf ~/ZSWKMAdmin.tar.gz"'
             } else if (buildPlatform.contains('linux')) {
                 sh "ssh -o StrictHostKeyChecking=no ${nginxServerUsername}@${nginxServerIP} uname -a"
                 sh "scp -o StrictHostKeyChecking=no ./ZSWKMAdmin.tar.gz ${nginxServerUsername}@${nginxServerIP}:~/"
                 sh 'ssh -o StrictHostKeyChecking=no ' + nginxServerUsername + '@' + nginxServerIP + ' "cd ' +nginxProjectPath + ' && rm -rf ./ZSWKMAdmin/*"'
-                sh 'ssh -o StrictHostKeyChecking=no ' + nginxServerUsername + '@' + nginxServerIP + ' "cd ' +nginxProjectPath + ' && tar -zxvf ~/ZSWKMAdmin.tar.gz -C ./ZSWKMAdmin && rm -rf ~/ZSWKMAdmin.tar.gz"'
+                sh 'ssh -o StrictHostKeyChecking=no ' + nginxServerUsername + '@' + nginxServerIP + ' "cd ' +nginxProjectPath + ' && mkdir ZSWKMAdmin && tar -zxvf ~/ZSWKMAdmin.tar.gz -C ./ZSWKMAdmin && rm -rf ~/ZSWKMAdmin.tar.gz"'
             }
         }
 
