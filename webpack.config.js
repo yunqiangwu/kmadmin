@@ -39,7 +39,6 @@ module.exports = (webpackConfig, env) => {
       hash: true,
       mobile: true,
       title: 'antd-admin',
-      baseHref: 'https://test.zhishinet.com/static_res/pages/ZSWKMAdmin/dist/',
       inject: false,
       appMountId: 'root',
       template: `!!ejs-loader!${HtmlWebpackTemplate}`,

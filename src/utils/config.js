@@ -9,7 +9,7 @@ module.exports = {
   name: '芝士网后台管理',
   prefix: 'antdAdmin_',
   footerText: 'Ant Design Admin  © 2017 zuiidea',
-  logo: '/logo.png',
+  logo: './logo.png',
   iconFontCSS: '/iconfont.css',
   iconFontJS: '/iconfont.js',
   CORS: ['https://dev2.zhishinet.com'],
