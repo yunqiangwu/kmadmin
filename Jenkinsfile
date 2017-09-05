@@ -205,7 +205,7 @@ node('mac_mini') {
         archiveArtifacts artifacts: 'ZSWKMAdmin.tar.gz', fingerprint: true
     }
     stage('deploy') {
-
+        /*
         if (buildPlatform.contains('darwin')) {
           sh "ssh -i ${sshKeyPath} -o StrictHostKeyChecking=no ${nginxServerUsername}@${nginxServerIP} uname -a"
           sh "ssh -i ${sshKeyPath} -o StrictHostKeyChecking=no ${nginxServerUsername}@${nginxServerIP} ls -la ${nginxProjectPath}"
@@ -213,8 +213,8 @@ node('mac_mini') {
           sh "ssh -o StrictHostKeyChecking=no ${nginxServerUsername}@${nginxServerIP} uname -a"
           sh "ssh -o StrictHostKeyChecking=no ${nginxServerUsername}@${nginxServerIP} ls -la ${nginxProjectPath}"
         }
+        */
 
-        /*
         echo "publish to ${environment} env"
         sshagent(credentials: ['04d588f3-fbbd-4547-8b0c-9c23de17e21e']) {
             if (buildPlatform.contains('darwin')) {
@@ -229,6 +229,6 @@ node('mac_mini') {
                 sh 'ssh -o StrictHostKeyChecking=no ' + nginxServerUsername + '@' + nginxServerIP + ' "cd ' +nginxProjectPath + ' && tar -zxvf ~/ZSWKMAdmin.tar.gz -C ./ZSWKMAdmin && rm -rf ~/ZSWKMAdmin.tar.gz"'
             }
         }
-        */
+
     }
 }
