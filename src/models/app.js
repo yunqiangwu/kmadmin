@@ -1,6 +1,6 @@
 /* global window */
 /* global document */
-// /* global location */
+/* global location */
 import { routerRedux } from 'dva/router'
 import { parse } from 'qs'
 import config from 'config'
@@ -53,17 +53,18 @@ export default {
     }, { call, put, select }) {
       let tokenData = yield select(s => s.app.tokenData)
       let pathname = yield select(s => s.routing.locationBeforeTransitions.pathname)
+      let from = pathname
       tokenData && (window.tokenData = tokenData)
       const userInfo = yield call(query, payload)
-      const { success } = userInfo
-      let user = {
-        ...userInfo,
-        permissions: {
-          role: EnumRoleType.DEVELOPER,
-        },
-        id: +userInfo.userId,
-      }
-      if (success && user) {
+      console.log(userInfo)
+      if (userInfo && userInfo.success) {
+        let user = {
+          ...userInfo,
+          permissions: {
+            role: EnumRoleType.DEVELOPER,
+          },
+          id: +userInfo.userId,
+        }
         const { list } = yield call(menusService.query)
         const { permissions } = user
         let menu = list
@@ -93,10 +94,11 @@ export default {
           yield put(routerRedux.push('/homepage'))
         }
       } else if (config.openPages && config.openPages.indexOf(pathname) < 0) {
-        let from = pathname
-        // window.location = `${origin}/login?from=${from}`
+        console.log('登录失败！')
+        // window.location = `${location.origin}/login?from=${from}`
         yield put(routerRedux.replace(`/login${/\s*\/\s*/.test(from) ? '?from=/' : `?from=${from}`}`))
       } else {
+        yield put(routerRedux.replace(`/login${/\s*\/\s*/.test(from) ? '?from=/' : `?from=${from}`}`))
         throw userInfo
       }
     },
