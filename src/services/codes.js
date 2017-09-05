@@ -7,6 +7,7 @@ export async function query (params) {
   params = {
     page: 1,
     pageSize: 10,
+    isDeleted: 0,
     ...params,
   }
   return request({
@@ -25,11 +26,12 @@ export async function save (params) {
 }
 
 export async function queryValues (params) {
-  // params = {
-  //   page: 1,
-  //   pageSize: 10,
-  //   ...params,
-  // }
+  params = {
+    page: 1,
+    pageSize: 10000,
+    isDeleted: 0,
+    ...params,
+  }
   return request({
     url: codesValuesList,
     method: 'get',
