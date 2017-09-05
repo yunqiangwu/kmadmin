@@ -4,6 +4,11 @@ const { api } = config
 const { promptsList, promptsSave } = api
 
 export async function query (params) {
+  params = {
+    page: 1,
+    pageSize: 10,
+    ...params,
+  }
   return request({
     url: promptsList,
     method: 'get',

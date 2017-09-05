@@ -4,6 +4,11 @@ const { api } = config
 const { codesList, codesSave, codesValuesList, codesValuesSave } = api
 
 export async function query (params) {
+  params = {
+    page: 1,
+    pageSize: 10,
+    ...params,
+  }
   return request({
     url: codesList,
     method: 'get',
@@ -20,6 +25,11 @@ export async function save (params) {
 }
 
 export async function queryValues (params) {
+  // params = {
+  //   page: 1,
+  //   pageSize: 10,
+  //   ...params,
+  // }
   return request({
     url: codesValuesList,
     method: 'get',
