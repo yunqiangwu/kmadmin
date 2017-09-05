@@ -4,7 +4,7 @@ import { queryValues, query as queryCodes, save as saveCodes, saveValues } from 
 import modelExtend from 'dva-model-extend'
 import { pageModel } from '../common'
 
-const PrimaryKeyFiled = 'lookUpId'
+const PrimaryKeyFiled = 'lookupId'
 
 export default modelExtend(pageModel, {
 

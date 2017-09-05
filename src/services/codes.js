@@ -27,8 +27,8 @@ export async function save (params) {
 
 export async function queryValues (params) {
   params = {
-    page: 1,
-    pageSize: 10000,
+    // page: 1,
+    // pageSize: 10000,
     isDeleted: 0,
     ...params,
   }

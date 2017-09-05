@@ -20,10 +20,10 @@ let codesListData = Mock.mock({
         }
         return Mock.mock({
           'data|0-6': [{
-            lookUpId: '@id',
+            lookupId: '@id',
             lookupType: this.lookupType,
-            lookUpCode: '@string("lower", 5)_@integer(100, 999)',
-            lookUpValue: '@cword(3, 6)',
+            lookupCode: '@string("lower", 5)_@integer(100, 999)',
+            lookupValue: '@cword(3, 6)',
             description: '@cparagraph',
             displayOrder: generateOrder,
             language: 'CN',
@@ -138,17 +138,17 @@ module.exports = {
   [`POST ${codesValuesSave}`] (req, res) {
     const submitData = req.body
     submitData.forEach((item) => {
-      if (item.deleted && item.lookUpId) {
-        valuesDatabase = valuesDatabase.filter(_ => _.lookUpId !== item.lookUpId)
+      if (item.deleted && item.lookupId) {
+        valuesDatabase = valuesDatabase.filter(_ => _.lookupId !== item.lookupId)
       }
-      if (!item.deleted && item.lookUpId) {
-        let index = valuesDatabase.findIndex(_ => _.lookUpId === item.lookUpId)
+      if (!item.deleted && item.lookupId) {
+        let index = valuesDatabase.findIndex(_ => _.lookupId === item.lookupId)
         if (index > -1) {
           valuesDatabase[index] = { ...valuesDatabase[index], ...item }
         }
       }
-      if (!item.lookUpId && item.lookupType) {
-        item = { ...item, lookUpId: Mock.mock('@id') }
+      if (!item.lookupId && item.lookupType) {
+        item = { ...item, lookupId: Mock.mock('@id') }
         valuesDatabase.unshift(item)
       }
     })

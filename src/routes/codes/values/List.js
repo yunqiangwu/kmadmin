@@ -17,7 +17,7 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
       confirm({
         title: 'Are you sure delete this record?',
         onOk () {
-          onDeleteItem(record.lookUpId)
+          onDeleteItem(record.lookupId)
         },
       })
     }
@@ -26,13 +26,13 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
   const columns = [
     {
       title: '值',
-      dataIndex: 'lookUpCode',
-      key: 'lookUpCode',
+      dataIndex: 'lookupCode',
+      key: 'lookupCode',
     },
     {
       title: '含义',
-      dataIndex: 'lookUpValue',
-      key: 'lookUpValue',
+      dataIndex: 'lookupValue',
+      key: 'lookupValue',
     },
     {
       title: '排序号',
@@ -84,7 +84,7 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
         columns={columns}
         pagination={false}
         simple
-        rowKey={record => record.lookUpId}
+        rowKey={record => record.lookupId}
         getBodyWrapper={getBodyWrapper}
       />
     </div>

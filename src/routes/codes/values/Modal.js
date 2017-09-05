@@ -46,8 +46,8 @@ const modal = ({
     <Modal {...modalOpts}>
       <Form layout="horizontal">
         <FormItem label="值" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('lookUpCode', {
-            initialValue: item.lookUpCode,
+          {getFieldDecorator('lookupCode', {
+            initialValue: item.lookupCode,
             rules: [
               {
                 required: true,
@@ -56,8 +56,8 @@ const modal = ({
           })(<Input readOnly={!primaryKeyEditable} />)}
         </FormItem>
         <FormItem label="含义" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('lookUpValue', {
-            initialValue: item.lookUpValue,
+          {getFieldDecorator('lookupValue', {
+            initialValue: item.lookupValue,
             rules: [
               {
                 required: true,
