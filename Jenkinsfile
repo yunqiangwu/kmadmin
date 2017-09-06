@@ -206,7 +206,7 @@ node('mac_mini') {
         echo 'run unit test (not supported now)'
     }
     stage('archive') {
-        sh "tar -zcvf ZSWKMAdmin.tar.gz ./dist"
+        sh "cd dist && tar -zcvf ZSWKMAdmin.tar.gz ./"
         archiveArtifacts artifacts: 'ZSWKMAdmin.tar.gz', fingerprint: true
     }
     stage('deploy') {
