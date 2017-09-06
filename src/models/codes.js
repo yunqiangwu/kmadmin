@@ -92,6 +92,7 @@ export default modelExtend(pageModel, {
     setup ({ dispatch, history }) {
       history.listen((location) => {
         if (location.pathname === '/codes') {
+          dispatch({ type: 'app/routerEnd' })
           dispatch({
             type: 'query',
             payload: location.query,

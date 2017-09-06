@@ -1,6 +1,5 @@
 /* global window */
 /* global document */
-/* global location */
 import { routerRedux } from 'dva/router'
 import { parse } from 'qs'
 import config from 'config'
@@ -13,6 +12,7 @@ const { prefix } = config
 export default {
   namespace: 'app',
   state: {
+    routeLoading: false,
     user: {},
     permissions: {
       visit: [],
@@ -34,7 +34,15 @@ export default {
   },
   subscriptions: {
 
-    setup ({ dispatch }) {
+    setup (arg) {
+      console.info(arg)
+      let { dispatch, history } = arg
+      // history.listen(() => {
+      //   dispatch({ type: 'routerEnd' })
+      // })
+      history.listenBefore(() => {
+        dispatch({ type: 'routerStart' })
+      })
       dispatch({ type: 'query' })
       let tid
       window.onresize = () => {
@@ -101,8 +109,14 @@ export default {
       } else if (config.openPages && config.openPages.indexOf(pathname) < 0) {
         // console.log(`登录失败！\t${`/login${/\s*\/\s*/.test(from) ? '?from=/' : `?from=${from}`}`}\t:\t${from}`)
         // window.location = `${location.origin}/login?from=${from}`
+        if (pathname === '/login') {
+          pathname = '/'
+        }
         yield put(routerRedux.replace(`/login?from=${pathname}`))
       } else {
+        if (pathname === '/login') {
+          pathname = '/'
+        }
         yield put(routerRedux.replace(`/login?from=${pathname}`))
         throw userInfo
       }
@@ -165,6 +179,20 @@ export default {
       //   ...state,
       //   darkTheme: !state.darkTheme,
       // }
+    },
+
+    routerStart (state) {
+      return {
+        ...state,
+        routeLoading: true,
+      }
+    },
+
+    routerEnd (state) {
+      return {
+        ...state,
+        routeLoading: false,
+      }
     },
 
     switchMenuPopver (state) {
