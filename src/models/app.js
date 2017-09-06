@@ -12,7 +12,7 @@ const { prefix } = config
 export default {
   namespace: 'app',
   state: {
-    routeLoading: false,
+    requireLoading: false,
     user: {},
     permissions: {
       visit: [],
@@ -36,13 +36,7 @@ export default {
 
     setup (arg) {
       console.info(arg)
-      let { dispatch, history } = arg
-      // history.listen(() => {
-      //   dispatch({ type: 'routerEnd' })
-      // })
-      history.listenBefore(() => {
-        dispatch({ type: 'routerStart' })
-      })
+      let { dispatch } = arg
       dispatch({ type: 'query' })
       let tid
       window.onresize = () => {
@@ -181,17 +175,17 @@ export default {
       // }
     },
 
-    routerStart (state) {
+    asynRequireStart (state) {
       return {
         ...state,
-        routeLoading: true,
+        requireLoading: true,
       }
     },
 
-    routerEnd (state) {
+    asynRequireEnd (state) {
       return {
         ...state,
-        routeLoading: false,
+        requireLoading: false,
       }
     },
 

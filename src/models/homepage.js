@@ -29,7 +29,6 @@ export default modelExtend(model, {
       history.listen(({ pathname }) => {
         if (pathname === '/homepage' || pathname === '/') {
           // dispatch({ type: 'query' })
-          dispatch({ type: 'app/routerEnd' })
           console.log(pathname)
         }
       })

@@ -17,7 +17,7 @@ const { Header, Bread, Sider, styles } = Layout
 let lastHref
 
 const App = ({ children, dispatch, app, loading, location }) => {
-  const { user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys, menu, permissions, routeLoading } = app
+  const { user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys, menu, permissions, requireLoading } = app
   let { pathname } = location
   pathname = pathname.startsWith('/') ? pathname : `/${pathname}`
   const { iconFontJS, iconFontCSS, logo } = config
@@ -86,7 +86,7 @@ const App = ({ children, dispatch, app, loading, location }) => {
         {iconFontJS && <script src={iconFontJS} />}
         {iconFontCSS && <link rel="stylesheet" href={iconFontCSS} />}
       </Helmet>
-      { routeLoading && <Loader spinning /> }
+      { requireLoading && <Loader spinning /> }
       <div className={classnames(styles.layout, { [styles.fold]: isNavbar ? false : siderFold }, { [styles.withnavbar]: isNavbar })}>
         <Header {...headerProps} />
         {!isNavbar ? <aside className={classnames(styles.sider, { [styles.light]: !darkTheme })}>

@@ -4,19 +4,34 @@ import { Router } from 'dva/router'
 import App from 'routes/app'
 
 
-const registerModel = (app, model) => {
-  if (!(app._models.filter(m => m.namespace === model.namespace).length === 1)) {
-    app.model(model)
-  }
-}
+// dispatch({ type: 'app/asynRequireStart' })
+// dispatch({ type: 'app/asynRequireEnd' })
 
 const Routers = function ({ history, app }) {
+  const dispatch = app._store.dispatch
+
+  const registerModel = (a, model) => {
+    if (!(a._models.filter(m => m.namespace === model.namespace).length === 1)) {
+      a.model(model)
+    }
+  }
+  let asycRequire = (depends, cb, o) => {
+    dispatch({ type: 'app/asynRequireStart' })
+    const myCb = (_require) => {
+      dispatch({ type: 'app/asynRequireEnd' })
+      cb(_require)
+    }
+    require.ensure(depends, myCb, o)
+  }
+
   const routes = [
     {
       path: '/',
       component: App,
       getIndexRoute (nextState, cb) {
+        dispatch({ type: 'app/asynRequireStart' })
         require.ensure([], (require) => {
+          dispatch({ type: 'app/asynRequireEnd' })
           registerModel(app, require('models/homepage'))
           cb(null, { component: require('routes/homepage/') })
         }, 'homepage')
@@ -25,7 +40,9 @@ const Routers = function ({ history, app }) {
         {
           path: 'codes/values/:lookupType',
           getComponent (nextState, cb) {
+            dispatch({ type: 'app/asynRequireStart' })
             require.ensure([], (require) => {
+              dispatch({ type: 'app/asynRequireEnd' })
               registerModel(app, require('models/codes/values'))
               cb(null, require('routes/codes/values/'))
             }, 'codes-values')
@@ -34,7 +51,9 @@ const Routers = function ({ history, app }) {
         {
           path: 'prompts',
           getComponent (nextState, cb) {
+            dispatch({ type: 'app/asynRequireStart' })
             require.ensure([], (require) => {
+              dispatch({ type: 'app/asynRequireEnd' })
               registerModel(app, require('models/prompts'))
               cb(null, require('routes/prompts/'))
             }, 'prompts')
@@ -43,7 +62,9 @@ const Routers = function ({ history, app }) {
         {
           path: 'codes',
           getComponent (nextState, cb) {
+            dispatch({ type: 'app/asynRequireStart' })
             require.ensure([], (require) => {
+              dispatch({ type: 'app/asynRequireEnd' })
               registerModel(app, require('models/codes'))
               cb(null, require('routes/codes/'))
             }, 'codes')
@@ -51,125 +72,29 @@ const Routers = function ({ history, app }) {
         }, {
           path: 'homepage',
           getComponent (nextState, cb) {
+            dispatch({ type: 'app/asynRequireStart' })
             require.ensure([], (require) => {
+              dispatch({ type: 'app/asynRequireEnd' })
               registerModel(app, require('models/homepage'))
               cb(null, require('routes/homepage/'))
             }, 'homepage')
           },
         }, {
-          path: 'dashboard',
-          getComponent (nextState, cb) {
-            require.ensure([], (require) => {
-              registerModel(app, require('models/dashboard'))
-              cb(null, require('routes/dashboard/'))
-            }, 'dashboard')
-          },
-        }, {
-          path: 'user',
-          getComponent (nextState, cb) {
-            require.ensure([], (require) => {
-              registerModel(app, require('models/user'))
-              cb(null, require('routes/user/'))
-            }, 'user')
-          },
-        }, {
-          path: 'user/:id',
-          getComponent (nextState, cb) {
-            require.ensure([], (require) => {
-              registerModel(app, require('models/user/detail'))
-              cb(null, require('routes/user/detail/'))
-            }, 'user-detail')
-          },
-        }, {
           path: 'login*',
           getComponent (nextState, cb) {
+            dispatch({ type: 'app/asynRequireStart' })
             require.ensure([], (require) => {
+              dispatch({ type: 'app/asynRequireEnd' })
               registerModel(app, require('models/login'))
               cb(null, require('routes/login/'))
             }, 'login')
           },
         }, {
-          path: 'request',
-          getComponent (nextState, cb) {
-            require.ensure([], (require) => {
-              cb(null, require('routes/request/'))
-            }, 'request')
-          },
-        }, {
-          path: 'UIElement/iconfont',
-          getComponent (nextState, cb) {
-            require.ensure([], (require) => {
-              cb(null, require('routes/UIElement/iconfont/'))
-            }, 'UIElement-iconfont')
-          },
-        }, {
-          path: 'UIElement/search',
-          getComponent (nextState, cb) {
-            require.ensure([], (require) => {
-              cb(null, require('routes/UIElement/search/'))
-            }, 'UIElement-search')
-          },
-        }, {
-          path: 'UIElement/dropOption',
-          getComponent (nextState, cb) {
-            require.ensure([], (require) => {
-              cb(null, require('routes/UIElement/dropOption/'))
-            }, 'UIElement-dropOption')
-          },
-        }, {
-          path: 'UIElement/layer',
-          getComponent (nextState, cb) {
-            require.ensure([], (require) => {
-              cb(null, require('routes/UIElement/layer/'))
-            }, 'UIElement-layer')
-          },
-        }, {
-          path: 'UIElement/dataTable',
-          getComponent (nextState, cb) {
-            require.ensure([], (require) => {
-              cb(null, require('routes/UIElement/dataTable/'))
-            }, 'UIElement-dataTable')
-          },
-        }, {
-          path: 'UIElement/editor',
-          getComponent (nextState, cb) {
-            require.ensure([], (require) => {
-              cb(null, require('routes/UIElement/editor/'))
-            }, 'UIElement-editor')
-          },
-        }, {
-          path: 'chart/lineChart',
-          getComponent (nextState, cb) {
-            require.ensure([], (require) => {
-              cb(null, require('routes/chart/lineChart/'))
-            }, 'chart-lineChart')
-          },
-        }, {
-          path: 'chart/barChart',
-          getComponent (nextState, cb) {
-            require.ensure([], (require) => {
-              cb(null, require('routes/chart/barChart/'))
-            }, 'chart-barChart')
-          },
-        }, {
-          path: 'chart/areaChart',
-          getComponent (nextState, cb) {
-            require.ensure([], (require) => {
-              cb(null, require('routes/chart/areaChart/'))
-            }, 'chart-areaChart')
-          },
-        }, {
-          path: 'post',
-          getComponent (nextState, cb) {
-            require.ensure([], (require) => {
-              registerModel(app, require('models/post'))
-              cb(null, require('routes/post/'))
-            }, 'post')
-          },
-        }, {
           path: '*',
           getComponent (nextState, cb) {
+            dispatch({ type: 'app/asynRequireStart' })
             require.ensure([], (require) => {
+              dispatch({ type: 'app/asynRequireEnd' })
               cb(null, require('routes/error/'))
             }, 'error')
           },

@@ -24,7 +24,6 @@ export default modelExtend(pageModel, {
         let pathname = location.pathname
         const match = pathToRegexp('/codes/values/:lookupType').exec(pathname)
         if (match) {
-          dispatch({ type: 'app/routerEnd' })
           dispatch({ type: 'query' })
         }
       })

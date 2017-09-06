@@ -1,3 +1,4 @@
+/* global window */
 import { message } from 'antd'
 import dva from 'dva'
 import createLoading from 'dva-loading'
@@ -23,3 +24,5 @@ app.router(require('./router'))
 
 // 4. Start
 app.start('#root')
+
+window.app = app
