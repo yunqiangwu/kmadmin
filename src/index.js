@@ -25,4 +25,6 @@ app.router(require('./router'))
 // 4. Start
 app.start('#root')
 
-window.app = app
+window._app = app
+
+window._dispatch = app._store.dispatch

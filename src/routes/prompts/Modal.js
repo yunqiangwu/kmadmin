@@ -83,7 +83,7 @@ const modal = ({
 
 modal.propTypes = {
   form: PropTypes.object.isRequired,
-  primaryKeyEditable: PropTypes.object,
+  primaryKeyEditable: PropTypes.bool,
   type: PropTypes.string,
   item: PropTypes.object,
   onOk: PropTypes.func,

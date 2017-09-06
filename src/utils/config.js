@@ -19,7 +19,7 @@ module.exports = {
   APIV2,
   api: {
     userLogin: `${url}/api/zauth/v1/token/access`,
-    userLogout: `${APIV1}/user/logout`,
+    refreshToken: `${url}/api/zauth/v1/token/refresh`,
     userInfo: `${url}/api/HomePageAPI/GetUserInfo`,
     users: `${APIV1}/users`,
     posts: `${APIV1}/posts`,
