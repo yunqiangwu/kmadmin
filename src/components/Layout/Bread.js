@@ -11,13 +11,13 @@ const currentIsHomePage = (pathname) => {
   return pathname === '/' || pathname === '/homepage'
 }
 
-const Bread = ({ menu }) => {
+const Bread = ({ menu, pathname }) => {
   // 匹配当前路由
   let pathArray = []
   let current
   for (let index = 0; index < menu.length; index += 1) {
     let url1 = menu[index].route
-    let url2 = location.pathname
+    let url2 = pathname || location.hash.substring(1).replace(/\?.*$/g, '') || location.pathname
     if ((url1 && pathToRegexp(url1).exec(url2)) || (currentIsHomePage(url1) && currentIsHomePage(url2))) {
       current = menu[index]
       break
@@ -74,6 +74,7 @@ const Bread = ({ menu }) => {
 
 Bread.propTypes = {
   menu: PropTypes.array,
+  pathname: PropTypes.string,
 }
 
 export default Bread
