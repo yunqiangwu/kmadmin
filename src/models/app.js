@@ -5,7 +5,7 @@ import { routerRedux } from 'dva/router'
 import { parse } from 'qs'
 import config from 'config'
 import { EnumRoleType } from 'enums'
-import { query, logout } from 'services/app'
+import { getUserInfo, logout } from 'services/app'
 import * as menusService from 'services/menus'
 
 const { prefix } = config
@@ -53,12 +53,13 @@ export default {
     }, { call, put, select }) {
       let tokenData = yield select(s => s.app.tokenData)
       let pathname = yield select(s => s.routing.locationBeforeTransitions.pathname)
-      let from = pathname
+      let from = yield select(s => s.routing.locationBeforeTransitions.query.from)
       tokenData && (window.tokenData = tokenData)
-      const userInfo = yield call(query, payload)
+      const userInfo = yield call(getUserInfo, payload)
       console.log(userInfo)
       if (userInfo && userInfo.success) {
         let user = {
+          username: userInfo.FullName,
           ...userInfo,
           permissions: {
             role: EnumRoleType.DEVELOPER,
@@ -91,14 +92,18 @@ export default {
           },
         })
         if (pathname === '/login') {
-          yield put(routerRedux.push('/homepage'))
+          if (from) {
+            yield put(routerRedux.push(from))
+          } else {
+            yield put(routerRedux.push('/homepage'))
+          }
         }
       } else if (config.openPages && config.openPages.indexOf(pathname) < 0) {
-        console.log('登录失败！')
+        // console.log(`登录失败！\t${`/login${/\s*\/\s*/.test(from) ? '?from=/' : `?from=${from}`}`}\t:\t${from}`)
         // window.location = `${location.origin}/login?from=${from}`
-        yield put(routerRedux.replace(`/login${/\s*\/\s*/.test(from) ? '?from=/' : `?from=${from}`}`))
+        yield put(routerRedux.replace(`/login?from=${pathname}`))
       } else {
-        yield put(routerRedux.replace(`/login${/\s*\/\s*/.test(from) ? '?from=/' : `?from=${from}`}`))
+        yield put(routerRedux.replace(`/login?from=${pathname}`))
         throw userInfo
       }
     },
@@ -108,7 +113,7 @@ export default {
     }, { call, put }) {
       const data = yield call(logout, parse(payload))
       if (data.success) {
-        yield put({ type: 'app/clearTokenData' })
+        yield put({ type: 'clearTokenData' })
         yield put({ type: 'query' })
       } else {
         throw (data)

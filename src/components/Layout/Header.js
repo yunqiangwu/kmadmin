@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import styles from './Header.less'
 import Menus from './Menu'
 import { config } from 'utils'
-import md5 from 'utils/md5'
+// import md5 from 'utils/md5'
 
 const SubMenu = Menu.SubMenu
 
@@ -22,7 +22,7 @@ const Header = ({ user, logout, switchSider, siderFold, isNavbar, menuPopoverVis
     changeOpenKeys,
   }
 
-  let avatarSrc = `http://www.gravatar.com/avatar/${md5(user.email)}?s=128`
+  // let avatarSrc = `http://www.gravatar.com/avatar/${md5(user.email)}?s=128`
   return (
     <div className={styles.header}>
       <div className={styles.leftWarpper}>
@@ -61,8 +61,8 @@ const Header = ({ user, logout, switchSider, siderFold, isNavbar, menuPopoverVis
             }}
             title={<span style={{ height: '100%', display: 'flex' }}>
               <span className={styles.username}>{user.username}</span>
-              <img src={avatarSrc} className={styles.usericon} alt="avatar" />
-              {/*<Icon className={styles.usericon} type="user" />*/}
+              <img src={user.ProfileUrl} className={styles.usericon} alt="avatar" />
+              {/* <Icon className={styles.usericon} type="user" /> */}
             </span>}
           >
             <Menu.Item key="logout">

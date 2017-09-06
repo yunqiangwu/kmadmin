@@ -20,10 +20,10 @@ module.exports = {
   api: {
     userLogin: `${url}/api/zauth/v1/token/access`,
     userLogout: `${APIV1}/user/logout`,
-    userInfo: `${APIV1}/userInfo`,
+    userInfo: `${url}/api/HomePageAPI/GetUserInfo`,
     users: `${APIV1}/users`,
     posts: `${APIV1}/posts`,
-    user: `${url}/api/user-profile/v1/sec/users/teacher`,
+    teacherInfo: `${url}/api/user-profile/v1/sec/users/teacher`,
     dashboard: `${APIV1}/dashboard`,
     menus: `${APIV1}/menus`,
     weather: `${APIV1}/weather`,

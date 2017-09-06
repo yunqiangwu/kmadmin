@@ -2,7 +2,7 @@
 import { request, config } from 'utils'
 
 const { api } = config
-const { user, userLogout, userLogin } = api
+const { teacherInfo, userInfo, userLogout, userLogin } = api
 
 export async function login (params) {
   return request({
@@ -24,10 +24,26 @@ export async function logout (params) {
   })
 }
 
-export async function query (params) {
+export async function getUserId (params) {
   return request({
-    url: user.replace('/:id', ''),
+    url: teacherInfo,
     method: 'get',
     data: params,
+  }).then((data) => {
+    return data.userId
+  })
+}
+
+export async function getUserInfo (params) {
+  let userId = await getUserId({})
+  return request({
+    url: userInfo,
+    method: 'get',
+    data: { userId, ...params },
+  }).then((data) => {
+    return {
+      userId,
+      ...data,
+    }
   })
 }
