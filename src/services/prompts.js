@@ -10,6 +10,11 @@ export async function query (params) {
     isDeleted: 0,
     ...params,
   }
+  Object.keys(params).forEach((key) => {
+    if (params[key] === '') {
+      delete params[key]
+    }
+  })
   return request({
     url: promptsList,
     method: 'get',

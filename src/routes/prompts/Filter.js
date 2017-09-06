@@ -69,7 +69,7 @@ const Filter = ({
         {getFieldDecorator('messageName', { initialValue: messageName })(<Search placeholder="名称查询" size="large" onSearch={handleSubmit} />)}
       </Col>
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
-        {getFieldDecorator('message', { initialValue: message })(<Search placeholder="描述查询" size="large" onSearch={handleSubmit} />)}
+        {getFieldDecorator('message', { initialValue: message })(<Search placeholder="内容查询" size="large" onSearch={handleSubmit} />)}
       </Col>
       <Col {...TwoColProps} xl={{ span: 10 }} md={{ span: 24 }} sm={{ span: 24 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>

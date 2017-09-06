@@ -10,6 +10,11 @@ export async function query (params) {
     isDeleted: 0,
     ...params,
   }
+  Object.keys(params).forEach((key) => {
+    if (params[key] === '') {
+      delete params[key]
+    }
+  })
   return request({
     url: codesList,
     method: 'get',
@@ -32,6 +37,11 @@ export async function queryValues (params) {
     isDeleted: 0,
     ...params,
   }
+  Object.keys(params).forEach((key) => {
+    if (params[key] === '') {
+      delete params[key]
+    }
+  })
   return request({
     url: codesValuesList,
     method: 'get',
