@@ -5,7 +5,9 @@ import jsonp from 'jsonp'
 import lodash from 'lodash'
 import pathToRegexp from 'path-to-regexp'
 import { message } from 'antd'
-import { YQL, CORS } from './config'
+import { YQL, CORS, api } from './config'
+
+const { refreshToken } = api
 
 const fetch = (options) => {
   let {
@@ -79,7 +81,7 @@ const fetch = (options) => {
   }
 }
 
-export default function request (options) {
+export default function request (options, n = 0) {
   // if (options.url && options.url.indexOf('//') > -1) {
   //   const origin = `${options.url.split('//')[0]}//${options.url.split('//')[1].split('/')[0]}`
   //   if (window.location.origin !== origin) {
@@ -101,7 +103,6 @@ export default function request (options) {
         list: data,
       }
     }
-
     return {
       success: true,
       message: statusText,
@@ -109,6 +110,33 @@ export default function request (options) {
       ...data,
     }
   }).catch((error) => {
+    if (n <= 2) {
+      return fetch({
+        method: 'POST',
+        url: refreshToken,
+        data: { refreshToken: window.tokenData && window.tokenData.refresh_token },
+      }).then((response) => {
+        let data = options.fetchType === 'YQL' ? response.data.query.results.json : response.data
+        window.tokenData = data
+        if (window._dispatch) {
+          window._dispatch({ type: 'app/putTokenData', payload: data })
+        }
+        return request(options, n + 1)
+      }).catch(() => {
+        const { response } = error
+        let msg
+        let statusCode
+        if (response && response instanceof Object) {
+          const { data, statusText } = response
+          statusCode = response.status
+          msg = data.message || data.usrMessage || data.devMessage || statusText
+        } else {
+          statusCode = 600
+          msg = error.message || 'Network Error'
+        }
+        return { success: false, statusCode, message: msg }
+      })
+    }
     const { response } = error
     let msg
     let statusCode
