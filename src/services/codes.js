@@ -7,7 +7,7 @@ export async function query (params) {
   params = {
     page: 1,
     pageSize: 10,
-    isDeleted: 0,
+    // isDeleted: 0,
     ...params,
   }
   Object.keys(params).forEach((key) => {
@@ -34,7 +34,7 @@ export async function queryValues (params) {
   params = {
     // page: 1,
     // pageSize: 10000,
-    isDeleted: 0,
+    // isDeleted: 0,
     ...params,
   }
   Object.keys(params).forEach((key) => {

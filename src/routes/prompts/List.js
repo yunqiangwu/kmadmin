@@ -26,7 +26,7 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
 
   const columns = [
     {
-      title: '编码',
+      title: '编号',
       dataIndex: 'messageId',
       key: 'messageId',
       // render: (text, record) => <Link to={`user/${record.id}`}>{text}</Link>,

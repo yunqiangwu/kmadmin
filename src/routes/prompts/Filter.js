@@ -63,7 +63,7 @@ const Filter = ({
   return (
     <Row gutter={24}>
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
-        {getFieldDecorator('messageId', { initialValue: messageId })(<Search placeholder="编码查询" size="large" onSearch={handleSubmit} />)}
+        {getFieldDecorator('messageId', { initialValue: messageId })(<Search placeholder="编号查询" size="large" onSearch={handleSubmit} />)}
       </Col>
       <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
         {getFieldDecorator('messageName', { initialValue: messageName })(<Search placeholder="名称查询" size="large" onSearch={handleSubmit} />)}

@@ -15,7 +15,7 @@ const User = ({ location, dispatch, prompts, loading }) => {
   const modalProps = {
     item: modalType === 'create' ? {} : currentItem,
     visible: modalVisible,
-    primaryKeyEditable: false && modalType === 'create',
+    primaryKeyEditable: false && (modalType === 'create'),
     maskClosable: false,
     confirmLoading: loading.effects['prompts/update'],
     title: `${modalType === 'create' ? '创建信息模板' : '编辑信息模板'}`,

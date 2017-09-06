@@ -46,7 +46,7 @@ const modal = ({
   return (
     <Modal {...modalOpts}>
       <Form layout="horizontal">
-        <FormItem label="编码" hasFeedback {...formItemLayout}>
+        <FormItem label="编号" hasFeedback {...formItemLayout}>
           {getFieldDecorator('messageId', {
             initialValue: item.messageId,
             rules: [
@@ -66,7 +66,7 @@ const modal = ({
             ],
           })(<Input />)}
         </FormItem>
-        <FormItem label="描述" hasFeedback {...formItemLayout}>
+        <FormItem label="内容" hasFeedback {...formItemLayout}>
           {getFieldDecorator('message', {
             initialValue: item.message,
             rules: [

@@ -125,7 +125,19 @@ const Detail = ({ codeValues, dispatch, location, loading }) => {
   return (
     <div className="content-inner">
       <div style={{ marginBottom: '10px' }}>
-        <CodesEditPannel {...codesEditProps}>
+        <Row gutter={24}>
+          <Col span={12}>
+            编码：{codesItem.lookupType}
+          </Col>
+          <Col span={12}>
+            名称：{codesItem.name}
+          </Col>
+          {codesItem.description && codesItem.description.trim() && <Col span={24}>
+            描述：{codesItem.description}
+          </Col>}
+          <Col span={24}>
+            <br />
+          </Col>
           <Col {...ColProps} xl={{ span: 1 }} md={{ span: 2 }}>
             <Button size="large" type="ghost" onClick={onAdd}>新建</Button>
           </Col>
@@ -137,7 +149,8 @@ const Detail = ({ codeValues, dispatch, location, loading }) => {
           <Col {...ColProps} xl={{ span: 1 }} md={{ span: 2 }}>
             <Button size="large" onClick={() => history.back()}>返回</Button>
           </Col>
-        </CodesEditPannel>
+        </Row>
+        {/* <CodesEditPannel {...codesEditProps} /> */}
       </div>
       <List {...listProps} />
       {
