@@ -197,9 +197,9 @@ node('mac_mini') {
         env.PATH="${env.PATH}:${nodeHome}/bin"
         sh "npm install && npm run build:dll && npm run build"
         if (buildPlatform.contains('darwin')) {
-            sh 'gsed -i \'s/${versionNum}\\///g\' ./dist/${versionNum}/index.css'
+            sh 'gsed -i \'s/'+versionNum+'\\///g\' ./dist/'+versionNum+'/index.css'
         } else if (buildPlatform.contains('linux')) {
-            sh 'sed -i \'s/${versionNum}\\///g\' ./dist/${versionNum}/index.css'
+            sh 'sed -i \'s/'+versionNum+'\\///g\' ./dist/'+versionNum+'/index.css'
         }
     }
     stage('test') {
