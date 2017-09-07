@@ -26,12 +26,12 @@ const Header = ({ user, logout, switchSider, siderFold, isNavbar, menuPopoverVis
   return (
     <div className={styles.header}>
       <div className={styles.leftWarpper}>
-        <div className={styles.logo} style={{ transform: siderFold ? 'scale(0)' : 'scale(1)', marginLeft: siderFold ? '-88%' : 0 }}>
+        <div className={styles.logo}>
           <img alt={'logo'} src={config.logo} />
-          <span>{config.name}</span>
+          {/* <span>{config.name}</span> */}
         </div>
         {isNavbar
-          ? <Popover placement="bottomLeft"
+          && <Popover placement="bottomLeft"
             onVisibleChange={switchMenuPopover}
             visible={menuPopoverVisible}
             overlayClassName={styles.popovermenu}
@@ -42,12 +42,7 @@ const Header = ({ user, logout, switchSider, siderFold, isNavbar, menuPopoverVis
               <Icon type="bars" />
             </div>
           </Popover>
-          : <div
-            className={styles.button}
-            onClick={switchSider}
-          >
-            <Icon type={classnames({ 'menu-unfold': siderFold, 'menu-fold': !siderFold })} />
-          </div>}
+        }
       </div>
 
       <div className={styles.rightWarpper}>
@@ -60,8 +55,8 @@ const Header = ({ user, logout, switchSider, siderFold, isNavbar, menuPopoverVis
               float: 'right',
             }}
             title={<span style={{ height: '100%', display: 'flex' }}>
-              <span className={styles.username}>{user.username}</span>
               <img src={user.ProfileUrl} className={styles.usericon} alt="avatar" />
+              <span className={styles.username}>{user.username}</span>
               {/* <Icon className={styles.usericon} type="user" /> */}
             </span>}
           >

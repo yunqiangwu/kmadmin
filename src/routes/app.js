@@ -6,6 +6,7 @@ import pathToRegexp from 'path-to-regexp'
 import { connect } from 'dva'
 import { Layout, Loader } from 'components'
 import { classnames, config } from 'utils'
+import { Menu, Icon, Popover } from 'antd'
 import { Helmet } from 'react-helmet'
 import '../themes/index.less'
 import './app.less'
@@ -89,8 +90,16 @@ const App = ({ children, dispatch, app, loading, location }) => {
       { requireLoading && <Loader spinning /> }
       <div className={classnames(styles.layout, { [styles.fold]: isNavbar ? false : siderFold }, { [styles.withnavbar]: isNavbar })}>
         <Header {...headerProps} />
+
         {!isNavbar ? <aside className={classnames(styles.sider, { [styles.light]: !darkTheme })}>
           <Sider {...siderProps} />
+          <div
+            className={styles.slideSwitchButton}
+            onClick={headerProps.switchSider}
+          >
+            {siderFold ? '▶' : '◀'}
+            {/* <Icon type={classnames({ 'menu-unfold': siderFold, 'menu-fold': !siderFold })} /> */}
+          </div>
         </aside> : ''}
         <div className={styles.main}>
           <Bread {...breadProps} />
